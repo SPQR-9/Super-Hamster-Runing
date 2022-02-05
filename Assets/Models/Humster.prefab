@@ -814,7 +814,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6688943729287294654}
-  - component: {fileID: 5539788310865434259}
   m_Layer: 0
   m_Name: Body
   m_TagString: Untagged
@@ -837,20 +836,6 @@ Transform:
   m_Father: {fileID: 2773634990565221988}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!136 &5539788310865434259
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5539788310865434257}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 0
-  m_Radius: 0.83903694
-  m_Height: 2.878239
-  m_Direction: 2
-  m_Center: {x: 6.193854e-15, y: 0.3321788, z: -1.564146}
 --- !u!1 &5835021212334298528
 GameObject:
   m_ObjectHideFlags: 0
@@ -1201,7 +1186,6 @@ GameObject:
   m_Component:
   - component: {fileID: 7946796270540636076}
   - component: {fileID: 7278768858101015824}
-  - component: {fileID: 7278768858101015825}
   - component: {fileID: 7278768858101015826}
   m_Layer: 0
   m_Name: Humster
@@ -1241,20 +1225,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _isRun: 1
   _speed: 5
---- !u!136 &7278768858101015825
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7278768858101015830}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 0
-  m_Radius: 0.8651484
-  m_Height: 2.8782392
-  m_Direction: 2
-  m_Center: {x: -9.722201e-10, y: 0.92, z: -1.5641459}
 --- !u!95 &7278768858101015826
 Animator:
   serializedVersion: 3
@@ -1334,7 +1304,7 @@ ConfigurableJoint:
   m_Anchor: {x: 0, y: 0, z: 0}
   m_Axis: {x: 1, y: 0, z: 0}
   m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: -7.1054274e-15, y: 0.6344927, z: -0.10010643}
+  m_ConnectedAnchor: {x: -7.1054274e-15, y: 0.63449264, z: -0.10010643}
   serializedVersion: 2
   m_SecondaryAxis: {x: 0, y: 1, z: 0}
   m_XMotion: 0
@@ -1548,9 +1518,9 @@ ConfigurableJoint:
   m_ConnectedAnchor: {x: 7.1054274e-15, y: 0.70350724, z: 1.0101066}
   serializedVersion: 2
   m_SecondaryAxis: {x: 0, y: 1, z: 0}
-  m_XMotion: 2
+  m_XMotion: 0
   m_YMotion: 2
-  m_ZMotion: 2
+  m_ZMotion: 0
   m_AngularXMotion: 0
   m_AngularYMotion: 0
   m_AngularZMotion: 0
@@ -1670,7 +1640,6 @@ GameObject:
   m_Component:
   - component: {fileID: 7620662761927347221}
   - component: {fileID: 7620662761927347222}
-  - component: {fileID: 7620662761927347223}
   m_Layer: 0
   m_Name: HEAD
   m_TagString: Untagged
@@ -1711,21 +1680,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!138 &7620662761927347223
-FixedJoint:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7620662761927347220}
-  m_ConnectedBody: {fileID: 7620662761650437382}
-  m_ConnectedArticulationBody: {fileID: 0}
-  m_BreakForce: Infinity
-  m_BreakTorque: Infinity
-  m_EnableCollision: 0
-  m_EnablePreprocessing: 1
-  m_MassScale: 1
-  m_ConnectedMassScale: 1
 --- !u!1 &7847307713897718983
 GameObject:
   m_ObjectHideFlags: 0
