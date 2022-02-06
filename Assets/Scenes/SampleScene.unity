@@ -1477,6 +1477,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7278768858101015824, guid: 0f979c3da534f854f8909522a83b1b17, type: 3}
       propertyPath: _isRun
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7278768858101015826, guid: 0f979c3da534f854f8909522a83b1b17, type: 3}
+      propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7278768858101015830, guid: 0f979c3da534f854f8909522a83b1b17, type: 3}
@@ -1497,7 +1501,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7620662761650437380, guid: 0f979c3da534f854f8909522a83b1b17, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7620662761650437382, guid: 0f979c3da534f854f8909522a83b1b17, type: 3}
       propertyPath: m_IsKinematic
@@ -1509,11 +1513,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7620662761650437383, guid: 0f979c3da534f854f8909522a83b1b17, type: 3}
       propertyPath: m_AngularYMotion
-      value: 2
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7620662761650437383, guid: 0f979c3da534f854f8909522a83b1b17, type: 3}
       propertyPath: m_AngularZMotion
-      value: 2
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7620662761650437383, guid: 0f979c3da534f854f8909522a83b1b17, type: 3}
+      propertyPath: m_ConnectedAnchor.x
+      value: 3.5527137e-15
+      objectReference: {fileID: 0}
+    - target: {fileID: 7620662761650437383, guid: 0f979c3da534f854f8909522a83b1b17, type: 3}
+      propertyPath: m_ConnectedAnchor.z
+      value: 1.0101064
       objectReference: {fileID: 0}
     - target: {fileID: 7946796270540636076, guid: 0f979c3da534f854f8909522a83b1b17, type: 3}
       propertyPath: m_RootOrder
@@ -1533,7 +1545,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7946796270540636076, guid: 0f979c3da534f854f8909522a83b1b17, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.7071068
+      value: 0.70710677
       objectReference: {fileID: 0}
     - target: {fileID: 7946796270540636076, guid: 0f979c3da534f854f8909522a83b1b17, type: 3}
       propertyPath: m_LocalRotation.x
@@ -1541,7 +1553,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7946796270540636076, guid: 0f979c3da534f854f8909522a83b1b17, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.7071068
+      value: 0.70710677
       objectReference: {fileID: 0}
     - target: {fileID: 7946796270540636076, guid: 0f979c3da534f854f8909522a83b1b17, type: 3}
       propertyPath: m_LocalRotation.z
