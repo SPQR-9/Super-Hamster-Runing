@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerMover : MonoBehaviour
+public class HumsterMover : MonoBehaviour
 {
     [SerializeField] private bool _isRun = true;
     [SerializeField] private float _speed = 1f;

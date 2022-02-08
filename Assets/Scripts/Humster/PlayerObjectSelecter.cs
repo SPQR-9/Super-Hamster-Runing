@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlayerObjectSelecter : MonoBehaviour
 {
-    [SerializeField] private Player _player;
+    [SerializeField] private Humster _player;
 
     private void OnTriggerEnter(Collider other)
     {

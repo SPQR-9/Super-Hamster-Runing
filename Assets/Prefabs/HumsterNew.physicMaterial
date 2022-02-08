@@ -6,9 +6,9 @@ PhysicMaterial:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Humster
-  dynamicFriction: 0.09
-  staticFriction: 0.25
-  bounciness: 0.21
-  frictionCombine: 0
+  m_Name: HumsterNew
+  dynamicFriction: 0.44
+  staticFriction: 0.27
+  bounciness: 0.6
+  frictionCombine: 3
   bounceCombine: 0
