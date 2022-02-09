@@ -6,8 +6,4 @@ public class Humster : MonoBehaviour
 {
     [SerializeField] private HumsterMover _playerMover;
 
-    public void GetSelectedObject(Status status)
-    {
-
-    }
 }
