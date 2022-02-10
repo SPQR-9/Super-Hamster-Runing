@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class HeadHumsterColliderDeterminant : MonoBehaviour
+public class ReboundHumsterColliderDeterminant : MonoBehaviour
 {
     [SerializeField] private HumsterMover _mover;
 
