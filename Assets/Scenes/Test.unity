@@ -1601,7 +1601,7 @@ MonoBehaviour:
   _timeStun: 2
   _brakingForce: 0.7
   _accelerationForce: 0.74
-  _reboundForce: 0.2
+  _reboundForce: 0.3
 --- !u!54 &872582472187685808
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -1926,14 +1926,14 @@ ConfigurableJoint:
     bounciness: 1
     contactDistance: 0
   m_AngularXLimitSpring:
-    spring: 8.24
-    damper: 11.71
+    spring: 16.1
+    damper: 12.57
   m_LowAngularXLimit:
-    limit: -5
+    limit: -2
     bounciness: 1
     contactDistance: 1
   m_HighAngularXLimit:
-    limit: 3
+    limit: 4
     bounciness: 1
     contactDistance: 1
   m_AngularYZLimitSpring:
