@@ -32,8 +32,8 @@ public class HamsterMover : MonoBehaviour
         _animationController.CheckRunningSpeed(_currentSpeed, _maxSpeed);
         if (_stunTimer > 0)
             _stunTimer -= Time.deltaTime;
-        if (Input.GetKey(KeyCode.Mouse0))
-            _isRun = true;  
+/*        if (Input.GetKey(KeyCode.Mouse0))
+            _isRun = true;  */
         if (_runPermission && _isRun && _stunTimer <= 0)
         {
             _currentSpeed = Mathf.Lerp(_currentSpeed, _maxSpeed, _accelerationForce * Time.deltaTime);
@@ -44,6 +44,15 @@ public class HamsterMover : MonoBehaviour
             _currentSpeed = Mathf.Lerp(_currentSpeed, 0, _brakingForce * Time.deltaTime);
             Move();
         }
+    }
+
+    public void Run()
+    {
+        _isRun = true;
+    }
+
+    public void Stop()
+    {
         _isRun = false;
     }
 

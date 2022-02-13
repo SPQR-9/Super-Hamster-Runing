@@ -24,6 +24,8 @@ public class Trigger : MonoBehaviour
                     break;
                 case TriggerType.Death:
                     break;
+                case TriggerType.AI:
+                    break;
             }
             ActivateAfterHamsterEntered?.Invoke();
         }
@@ -36,6 +38,7 @@ public enum TriggerType
 {
     None,
     Fall,
-    Death
+    Death,
+    AI
 }
 

@@ -24,7 +24,7 @@ public class Hamster : MonoBehaviour
     {
         foreach (var hamsterCollider in _hamsterColliders)
         {
-            hamsterCollider.AcceptedNewCommand += ExecuteCommand;
+            hamsterCollider.AcceptedNewCommandForHamsterBody += ExecuteCommand;
         }
     }
 
@@ -32,7 +32,7 @@ public class Hamster : MonoBehaviour
     {
         foreach (var hamsterCollider in _hamsterColliders)
         {
-            hamsterCollider.AcceptedNewCommand -= ExecuteCommand;
+            hamsterCollider.AcceptedNewCommandForHamsterBody -= ExecuteCommand;
         }
     }
 
@@ -54,12 +54,6 @@ public class Hamster : MonoBehaviour
 }
 
 [Serializable]
-
-public enum Type
-{
-    Player,
-    Bot
-}
 
 public enum Command
 {

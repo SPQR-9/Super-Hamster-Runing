@@ -19,7 +19,7 @@ public class HamsterAnimationController : MonoBehaviour
 
     public void CheckRunningSpeed(float speed, float maxSpeed)
     {
-        if (speed > 0.1f || speed < -0.05f)
+        if (speed > 0.15f || speed < -0.02f)
         {
             _animator.SetBool(_isRun, true);
             float runningSpeed = speed / maxSpeed;
