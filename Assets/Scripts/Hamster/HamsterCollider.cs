@@ -5,17 +5,18 @@ using UnityEngine.Events;
 
 public class HamsterCollider : MonoBehaviour
 {
-    public event UnityAction<Command> AcceptedNewCommandForHamsterBody;
-    public event UnityAction<Trap> InformationAboutTrapWasTransmitted;
 
-    public void AcceptCommand(Command command)
+    private Hamster _hamster;
+
+    public void SetHamster(Hamster hamster)
     {
-        AcceptedNewCommandForHamsterBody?.Invoke(command);
+        _hamster = hamster;
     }
 
-    public void TransmitteInfoAboutTrap(Trap trap)
+    public Hamster GetHamster()
     {
-        InformationAboutTrapWasTransmitted?.Invoke(trap);
+        return _hamster;
     }
+
 }
 

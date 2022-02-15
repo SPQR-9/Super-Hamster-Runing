@@ -6,39 +6,47 @@ using UnityEngine.Events;
 
 public class Trigger : MonoBehaviour
 {
-    public UnityEvent ActivateAfterHamsterEntered;
+    public UnityEvent ActivateAfterAnyHamsterEntered;
+    public UnityEvent ActivateAfterPlayerHamsterEntered;
+    public UnityEvent ActivateAfterAIHamsterEntered;
 
-    [SerializeField] private TriggerType _triggerType;
+    private Hamster _hamster;
+    private Collider _otherCollider;
 
     private void OnTriggerEnter(Collider other)
     {
-        
+        _otherCollider = other;
         if (other.TryGetComponent(out HamsterCollider hamsterCollider))
         {
-            switch (_triggerType)   
-            {
-                case TriggerType.None:
-                    break;
-                case TriggerType.Fall:
-                    hamsterCollider.AcceptCommand(Command.Fall);
-                    break;
-                case TriggerType.Death:
-                    break;
-                case TriggerType.AI:
-                    break;
-            }
-            ActivateAfterHamsterEntered?.Invoke();
+            _hamster = hamsterCollider.GetHamster();
+            ActivateAfterAnyHamsterEntered?.Invoke();
+            if (_hamster.Type == HamsterType.Player)
+                ActivateAfterPlayerHamsterEntered?.Invoke();
+            else
+                ActivateAfterAIHamsterEntered?.Invoke();
         }
+    }
+
+    public void FallOrder()
+    {
+        _hamster.Fall();
+    }
+    
+    public void TransmitInformationAboutTrap(Trap trap)
+    {
+        _hamster.SetInfoAboutTrap(trap);
+    }
+
+    public void Stun(float stunTime)
+    {
+        _hamster.Stun(stunTime);
+    }
+
+    public void InstantiateObject(GameObject gameObject)
+    {
+        Instantiate(gameObject, _otherCollider.transform);
     }
 }
 
-[Serializable]
 
-public enum TriggerType
-{
-    None,
-    Fall,
-    Death,
-    AI
-}
 

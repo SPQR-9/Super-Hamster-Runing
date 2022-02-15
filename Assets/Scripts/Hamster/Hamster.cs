@@ -4,60 +4,70 @@ using UnityEngine;
 using UnityEngine.Events;
 using System;
 
+[RequireComponent(typeof(HamsterMover))]
 public class Hamster : MonoBehaviour
 {
     public UnityEvent ActivateAfterFall;
     public UnityEvent ActivateAfterDeath;
 
-    [SerializeField] private Type _status;
+    public UnityAction<Trap> TrapInformationHasBeenTransmitted;
+
+    [SerializeField] private HamsterType _type;
 
     private HamsterCollider[] _hamsterColliders;
+    private HamsterMover _hamsterMover;
 
-    public Type HamsterStatus => _status;
+    public HamsterType Type => _type;
 
     private void Awake()
     {
         _hamsterColliders = GetComponentsInChildren<HamsterCollider>();
+        _hamsterMover = GetComponent<HamsterMover>();
     }
 
     private void OnEnable()
     {
         foreach (var hamsterCollider in _hamsterColliders)
         {
-            hamsterCollider.AcceptedNewCommandForHamsterBody += ExecuteCommand;
+            hamsterCollider.SetHamster(this);
         }
     }
 
-    private void OnDisable()
+    public void Fall()
     {
-        foreach (var hamsterCollider in _hamsterColliders)
-        {
-            hamsterCollider.AcceptedNewCommandForHamsterBody -= ExecuteCommand;
-        }
+        ActivateAfterFall?.Invoke();
     }
 
-    public void ExecuteCommand(Command command)
+    public void SetInfoAboutTrap(Trap trap)
     {
-        switch (command)
-        {
-            case Command.Fall:
-                ActivateAfterFall?.Invoke();
-                break;
-            case Command.Death:
-                ActivateAfterDeath?.Invoke();
-                break;
-            default:
-                break;
-        }
+        TrapInformationHasBeenTransmitted?.Invoke(trap);
     }
 
+    public void ReboundAndStun(float stunTime)
+    {
+        _hamsterMover.ReboundAndStun(stunTime);
+    }
+
+    public void Stun(float stunTime)
+    {
+        _hamsterMover.Stun(stunTime);
+    }
+
+    public void FlattenVertically()
+    {
+        _hamsterMover.FlattenVertically();
+    }
+    
+    public void FlattenHorizontal()
+    {
+        _hamsterMover.FlattenHorizontal();
+    }
 }
 
-[Serializable]
-
-public enum Command
+public enum HamsterType
 {
-    Fall,
-    Death
+    Player,
+    AI
 }
+
 

@@ -10,6 +10,8 @@ public class HamsterAnimationController : MonoBehaviour
     private const string _isRun = "IsRun";
     private const string _isFall = "IsFall";
     private const string _runningSpeed = "RunningSpeed";
+    private const string _flatVertically = "FlatVertically";
+    private const string _flatHorizontal = "FlatHorizontal";
 
 
     private void Awake()
@@ -37,5 +39,15 @@ public class HamsterAnimationController : MonoBehaviour
     public void StartFallAnimation()
     {
         _animator.SetBool(_isFall, true);
+    }
+
+    public void StartFlattenVerticallyAnimation()
+    {
+        _animator.SetBool(_flatVertically,true);
+    }
+    
+    public void StartFlattenHorizontalAnimation()
+    {
+        _animator.SetBool(_flatHorizontal,true);
     }
 }

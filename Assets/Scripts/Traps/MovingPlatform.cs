@@ -3,15 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody))]
-public class MovingPlatform : Trap
+public class MovingPlatform : MonoBehaviour
 {
     [SerializeField] private Transform _firstPoint;
     [SerializeField] private Transform _secondPoint;
     [SerializeField] private float _travelTime = 1f;
 
-    [SerializeField] private float _minDesirablePassageLeghth;
-    [SerializeField] private float _MaxDesirablePassageLeghth;
-
+    private bool _isMove = true;
     private Rigidbody _rigidbody;
     private Vector3 _firstPosition;
     private Vector3 _secondPosition;
@@ -31,6 +29,8 @@ public class MovingPlatform : Trap
 
     private void Update()
     {
+        if (!_isMove)
+            return;
         if(_currentTime>=_travelTime)
         {
             ChangeTargetPosition();
@@ -55,5 +55,13 @@ public class MovingPlatform : Trap
         }
     }
 
-        
+    public void Move()
+    {
+        _isMove = true;
+    }
+
+    public void Stop()
+    {
+        _isMove = false;
+    }
 }
