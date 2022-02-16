@@ -16,8 +16,11 @@ public class Hamster : MonoBehaviour
 
     private HamsterCollider[] _hamsterColliders;
     private HamsterMover _hamsterMover;
+    private bool _isWin = false;
+    private bool _isLose = false;
 
     public HamsterType Type => _type;
+    public bool IsWin => _isWin;
 
     private void Awake()
     {
@@ -65,8 +68,17 @@ public class Hamster : MonoBehaviour
 
     public void Win()
     {
+        if (_isLose)
+            return;
+        _isWin = true;
         ActivateAfterWin?.Invoke();
         _hamsterMover.Win();
+    }
+
+    public void Lose()
+    {
+        _isLose = true;
+        _hamsterMover.Lose();
     }
 }
 

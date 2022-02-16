@@ -25,6 +25,7 @@ public class HamsterMover : MonoBehaviour
     private float _currentSpeed;
     private Vector3 _direction;
     private bool _isWin = false;
+    private bool _isLose = false;
 
     private float _startZPosition;
 
@@ -46,7 +47,7 @@ public class HamsterMover : MonoBehaviour
         }
         else
             _stunEffect.SetActive(false);
-        if (_runPermission && _isRun && _stunTimer <= 0 && !_isWin)
+        if (_runPermission && _isRun && _stunTimer <= 0 && !_isWin && !_isLose)
         {
             _currentSpeed = Mathf.Lerp(_currentSpeed, _maxSpeed, _accelerationForce * Time.deltaTime);
             Move();
@@ -130,5 +131,10 @@ public class HamsterMover : MonoBehaviour
         _isWin = true;
         _boneRebinder.RebindeBones();
         _animationController.StartWinningAnimation();
+    }
+
+    public void Lose()
+    {
+        _isLose = true;
     }
 }
