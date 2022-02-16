@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Trap : MonoBehaviour
 {
-    protected bool _runPermissionForAI = false;
+    protected bool _runPermissionForAI = true;
 
     public bool RunPermissionForAI => _runPermissionForAI;
 }

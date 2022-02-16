@@ -8,7 +8,7 @@ using System;
 public class Hamster : MonoBehaviour
 {
     public UnityEvent ActivateAfterFall;
-    public UnityEvent ActivateAfterDeath;
+    public UnityEvent ActivateAfterWin;
 
     public UnityAction<Trap> TrapInformationHasBeenTransmitted;
 
@@ -61,6 +61,12 @@ public class Hamster : MonoBehaviour
     public void FlattenHorizontal()
     {
         _hamsterMover.FlattenHorizontal();
+    }
+
+    public void Win()
+    {
+        ActivateAfterWin?.Invoke();
+        _hamsterMover.Win();
     }
 }
 

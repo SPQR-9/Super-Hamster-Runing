@@ -37,6 +37,11 @@ public class Trigger : MonoBehaviour
         _hamster.SetInfoAboutTrap(trap);
     }
 
+    public void TransmitNullInformationAboutTrap()
+    {
+        _hamster.SetInfoAboutTrap(null);
+    }
+
     public void Stun(float stunTime)
     {
         _hamster.Stun(stunTime);
@@ -45,6 +50,11 @@ public class Trigger : MonoBehaviour
     public void InstantiateObject(GameObject gameObject)
     {
         Instantiate(gameObject, _otherCollider.transform);
+    }
+
+    public void Win()
+    {
+        _hamster.Win();
     }
 }
 

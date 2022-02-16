@@ -6,9 +6,11 @@ using UnityEngine;
 public class CollapsingTrap : Trap
 {
     [SerializeField] private float _pausedTime = 2.5f;
+    [SerializeField] private float _minSaveTime;
+    [SerializeField] private float _maxSaveTime;
 
     private Animator _animator;
-    private float _currentTime = 0;
+    protected float _currentTime = 0;
 
     private const string _hit = "Hit";
 
@@ -25,5 +27,9 @@ public class CollapsingTrap : Trap
             _currentTime = 0;
             _animator.SetTrigger(_hit);
         }
+        if (_currentTime > _minSaveTime && _currentTime < _maxSaveTime)
+            _runPermissionForAI = true;
+        else
+            _runPermissionForAI = false;
     }
 }

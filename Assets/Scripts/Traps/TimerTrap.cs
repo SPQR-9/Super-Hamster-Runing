@@ -7,9 +7,10 @@ public class TimerTrap : Trap
 {
     [SerializeField] private float _responseTime;
 
+    private float _currentTime = 0;
     private Animator _animator;
-    private float _timer;
     private const string _response = "Response";
+    private const string _idle = "Idle";
 
     private void Awake()
     {
@@ -18,11 +19,18 @@ public class TimerTrap : Trap
 
     private void Update()
     {
-        _timer += Time.deltaTime;
-        if (_timer >= _responseTime)
+        if (_animator.GetCurrentAnimatorStateInfo(0).IsName(_idle))
         {
-            _animator.SetTrigger(_response);
-            _timer = 0f;
+            _runPermissionForAI = true;
+            _currentTime += Time.deltaTime;
+        }
+        else
+            _runPermissionForAI = false;
+        _animator.SetBool(_response, false);
+        if (_currentTime >= _responseTime)
+        {
+            _animator.SetBool(_response,true);
+            _currentTime = 0f;
         }
     }
 }

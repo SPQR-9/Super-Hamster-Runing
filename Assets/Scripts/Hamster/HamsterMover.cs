@@ -5,6 +5,7 @@ using UnityEngine;
 
 [RequireComponent(typeof(HamsterAnimationController))]
 [RequireComponent(typeof(Rigidbody))]
+[RequireComponent(typeof(BoneRebinder))]
 public class HamsterMover : MonoBehaviour
 {
     [SerializeField] private bool _runPermission = true;
@@ -16,13 +17,14 @@ public class HamsterMover : MonoBehaviour
     [SerializeField] private float _zLimitDeviation = 0.8f;
     [SerializeField] private GameObject _stunEffect;
 
-
+    private BoneRebinder _boneRebinder;
     private Rigidbody _rigidbody;
     private HamsterAnimationController _animationController;
     private bool _isRun = false;
     private float _stunTimer = 0f;
     private float _currentSpeed;
     private Vector3 _direction;
+    private bool _isWin = false;
 
     private float _startZPosition;
 
@@ -30,6 +32,7 @@ public class HamsterMover : MonoBehaviour
     {
         _rigidbody = GetComponent<Rigidbody>();
         _animationController = GetComponent<HamsterAnimationController>();
+        _boneRebinder = GetComponent<BoneRebinder>();
         _startZPosition = transform.position.z;
     }
 
@@ -43,7 +46,7 @@ public class HamsterMover : MonoBehaviour
         }
         else
             _stunEffect.SetActive(false);
-        if (_runPermission && _isRun && _stunTimer <= 0)
+        if (_runPermission && _isRun && _stunTimer <= 0 && !_isWin)
         {
             _currentSpeed = Mathf.Lerp(_currentSpeed, _maxSpeed, _accelerationForce * Time.deltaTime);
             Move();
@@ -120,5 +123,12 @@ public class HamsterMover : MonoBehaviour
     public void FlattenHorizontal()
     {
         _animationController.StartFlattenHorizontalAnimation();
+    }
+
+    public void Win()
+    {
+        _isWin = true;
+        _boneRebinder.RebindeBones();
+        _animationController.StartWinningAnimation();
     }
 }

@@ -7,8 +7,8 @@ public class BoneRebinder : MonoBehaviour
 {
     [SerializeField] private Transform _headPosition;
     [SerializeField] private Transform _root;
-
-    [SerializeField] private List<Transform> _headBones;
+    [SerializeField] private List<Rigidbody> _rigidbodies;
+    [SerializeField] private List<Joint> _joints;
 
     private Animator _animator;
 
@@ -19,9 +19,13 @@ public class BoneRebinder : MonoBehaviour
 
     public void RebindeBones()
     {
-        foreach (var bone in _headBones)
+        foreach (var item in _joints)
         {
-            bone.SetParent(_headPosition);
+            Destroy(item);
+        }
+        foreach (var item in _rigidbodies)
+        {
+            Destroy(item);
         }
         _headPosition.SetParent(_root);
         _animator.Rebind();
