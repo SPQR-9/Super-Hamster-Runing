@@ -183,7 +183,7 @@ ConfigurableJoint:
   m_Anchor: {x: 0, y: 0, z: 0}
   m_Axis: {x: 1, y: 0, z: 0}
   m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: -2.9802322e-10, y: 0.0012499997, z: 0.02828}
+  m_ConnectedAnchor: {x: 3.8664625e-17, y: 0.0012499997, z: 0.02828}
   serializedVersion: 2
   m_SecondaryAxis: {x: 0, y: 1, z: 0}
   m_XMotion: 0
@@ -474,7 +474,7 @@ SkinnedMeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: a58a171aa948bcf4eac166554f3ade2e, type: 2}
+  - {fileID: 2100000, guid: 3804a14f298a8a34d8f31d84d7ee55ed, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
