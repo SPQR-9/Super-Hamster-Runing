@@ -9,11 +9,11 @@ public class GroundChecker : MonoBehaviour
     private void OnCollisionStay(Collision collision)
     {
         if (collision.gameObject.TryGetComponent(out Ground _))
-            _mover.AllowRunning();
+            _mover.PutOnGround();
     }
 
     private void OnCollisionExit(Collision collision)
     {
-        _mover.ProhibitRunning();
+        _mover.FlyUp();
     }
 }

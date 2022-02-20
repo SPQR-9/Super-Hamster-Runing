@@ -8,14 +8,17 @@ using UnityEngine;
 [RequireComponent(typeof(BoneRebinder))]
 public class HamsterMover : MonoBehaviour
 {
-    [SerializeField] private bool _runPermission = true;
+    [SerializeField] private bool _onGround = true;
     [SerializeField] private float _maxSpeed = 5f;
+    [SerializeField] private float _maxFlyingSpeed = 1f;
     [SerializeField] private float _brakingForce = 1f;
     [SerializeField] private float _accelerationForce = 1f;
+    [SerializeField] private float _accelerationFlyingForce = 1f;
     [SerializeField] private float _reboundability = 0.3f;
     [SerializeField] private bool _enableRepaymentZDeviation = true;
     [SerializeField] private float _zLimitDeviation = 0.8f;
     [SerializeField] private GameObject _stunEffect;
+    [SerializeField] private float _winSpeed = 0.3f;
 
     private BoneRebinder _boneRebinder;
     private Rigidbody _rigidbody;
@@ -47,17 +50,13 @@ public class HamsterMover : MonoBehaviour
         }
         else
             _stunEffect.SetActive(false);
-        if (_runPermission && _isRun && _stunTimer <= 0 && !_isWin && !_isLose)
-        {
+        if (_onGround && _isRun && _stunTimer <= 0 && !_isWin && !_isLose)
             _currentSpeed = Mathf.Lerp(_currentSpeed, _maxSpeed, _accelerationForce * Time.deltaTime);
-            Move();
-        }
+        else if(!_onGround && _isRun && _stunTimer <= 0 && !_isWin && !_isLose)
+            _currentSpeed = Mathf.Lerp(_currentSpeed, _maxFlyingSpeed, _accelerationFlyingForce * Time.deltaTime);
         else 
-        {
             _currentSpeed = Mathf.Lerp(_currentSpeed, 0, _brakingForce * Time.deltaTime);
-            Move();
-        }
-        
+        Move();
     }
 
     public void Run()
@@ -85,16 +84,17 @@ public class HamsterMover : MonoBehaviour
             _direction = new Vector3(1, 0, -0.3f);
         else if (transform.position.z < _startZPosition - _zLimitDeviation)
             _direction = new Vector3(1, 0, 0.3f);
+
     }
 
-    public void AllowRunning()
+    public void PutOnGround()
     {
-        _runPermission = true;
+        _onGround = true;
     }
 
-    public void ProhibitRunning()
+    public void FlyUp()
     {
-        _runPermission = false;
+        _onGround = false;
     }
 
     public void ReboundAndStun(float stunTime)
@@ -109,6 +109,7 @@ public class HamsterMover : MonoBehaviour
         _currentSpeed = 0;
         _rigidbody.isKinematic = true;
         _rigidbody.isKinematic = false;
+        
     }
 
     public void Fall()
@@ -130,6 +131,7 @@ public class HamsterMover : MonoBehaviour
     {
         _isWin = true;
         _boneRebinder.RebindeBones();
+        _currentSpeed = _winSpeed;
         _animationController.StartWinningAnimation();
     }
 

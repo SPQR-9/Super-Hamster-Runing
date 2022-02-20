@@ -6,6 +6,8 @@ using UnityEngine;
 public class HamsterAnimationController : MonoBehaviour
 {
     private Animator _animator;
+    [SerializeField] private float _minPlaybackLimit = -0.02f;
+    [SerializeField] private float _maxPlaybackLimit = 0.15f;
 
     private const string _isRun = "IsRun";
     private const string _isFall = "IsFall";
@@ -22,7 +24,7 @@ public class HamsterAnimationController : MonoBehaviour
 
     public void CheckRunningSpeed(float speed, float maxSpeed)
     {
-        if (speed > 0.15f || speed < -0.02f)
+        if (speed > _maxPlaybackLimit || speed < _minPlaybackLimit)
         {
             _animator.SetBool(_isRun, true);
             float runningSpeed = speed / maxSpeed;
