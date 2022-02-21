@@ -2,11 +2,13 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
-[RequireComponent(typeof(HamsterAnimationController))]
 [RequireComponent(typeof(Rigidbody))]
 public class HamsterMover : MonoBehaviour
 {
+    public event UnityAction<float> SpeedChanged;
+
     [SerializeField] private bool _onGround = true;
     [SerializeField] private float _maxSpeed = 5f;
     [SerializeField] private float _maxFlyingSpeed = 1f;
@@ -17,10 +19,9 @@ public class HamsterMover : MonoBehaviour
     [SerializeField] private bool _enableRepaymentZDeviation = true;
     [SerializeField] private float _zLimitDeviation = 0.8f;
     [SerializeField] private GameObject _stunEffect;
-    [SerializeField] private float _winSpeed = 0.3f;
+    [SerializeField] private float _rotationSpeed = 12f;
 
     private Rigidbody _rigidbody;
-    private HamsterAnimationController _animationController;
     private bool _isRun = false;
     private float _stunTimer = 0f;
     private float _currentSpeed;
@@ -30,16 +31,16 @@ public class HamsterMover : MonoBehaviour
 
     private float _startZPosition;
 
+    public float MaxSpeed => _maxSpeed;
+
     private void Awake()
     {
         _rigidbody = GetComponent<Rigidbody>();
-        _animationController = GetComponent<HamsterAnimationController>();
         _startZPosition = transform.position.z;
     }
 
     private void Update()
     {
-        _animationController.CheckRunningSpeed(_currentSpeed, _maxSpeed);
         if (_stunTimer > 0)
         {
             _stunEffect.SetActive(true);
@@ -72,7 +73,12 @@ public class HamsterMover : MonoBehaviour
         if (_enableRepaymentZDeviation)
             ReturnToStartingZPosition();
         _rigidbody.MovePosition(transform.position + _direction * _currentSpeed);
-        
+        if (transform.rotation.eulerAngles.x > 70 || transform.rotation.eulerAngles.x < -40)
+        {
+            Quaternion targetRotation = Quaternion.Lerp(transform.rotation, Quaternion.LookRotation(Vector3.right), _rotationSpeed * Time.deltaTime);
+            _rigidbody.MoveRotation(targetRotation);
+        }
+        SpeedChanged(_currentSpeed);
     }
 
     private void ReturnToStartingZPosition()
@@ -81,7 +87,6 @@ public class HamsterMover : MonoBehaviour
             _direction = new Vector3(1, 0, -0.3f);
         else if (transform.position.z < _startZPosition - _zLimitDeviation)
             _direction = new Vector3(1, 0, 0.3f);
-
     }
 
     public void PutOnGround()
@@ -106,29 +111,11 @@ public class HamsterMover : MonoBehaviour
         _currentSpeed = 0;
         _rigidbody.isKinematic = true;
         _rigidbody.isKinematic = false;
-        
-    }
-
-    public void Fall()
-    {
-        _animationController.StartFallAnimation();
-    }
-
-    public void FlattenVertically()
-    {
-        _animationController.StartFlattenVerticallyAnimation();
-    }
-
-    public void FlattenHorizontal()
-    {
-        _animationController.StartFlattenHorizontalAnimation();
     }
 
     public void Win()
     {
         _isWin = true;
-        _currentSpeed = _winSpeed;
-        _animationController.StartWinningAnimation();
     }
 
     public void Lose()

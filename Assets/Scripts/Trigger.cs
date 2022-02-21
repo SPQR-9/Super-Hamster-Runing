@@ -16,9 +16,9 @@ public class Trigger : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         _otherCollider = other;
-        if (other.TryGetComponent(out HamsterCollider hamsterCollider))
+        if (other.TryGetComponent(out Hamster hamster))
         {
-            _hamster = hamsterCollider.GetHamster();
+            _hamster = hamster;
             ActivateAfterAnyHamsterEntered?.Invoke();
             if (_hamster.Type == HamsterType.Player)
                 ActivateAfterPlayerHamsterEntered?.Invoke();
@@ -27,11 +27,6 @@ public class Trigger : MonoBehaviour
         }
     }
 
-    public void FallOrder()
-    {
-        _hamster.Fall();
-    }
-    
     public void TransmitInformationAboutTrap(Trap trap)
     {
         _hamster.SetInfoAboutTrap(trap);

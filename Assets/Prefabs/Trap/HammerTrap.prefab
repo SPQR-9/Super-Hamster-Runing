@@ -225,6 +225,101 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _movingPlatform: {fileID: 6767160305105470982}
   _hitTime: 3.2
+--- !u!1 &4664053667338244889
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5835627105953862605}
+  - component: {fileID: 1154777046756221071}
+  - component: {fileID: 970282828311248100}
+  - component: {fileID: 1476782352191071203}
+  m_Layer: 0
+  m_Name: GameObject
+  m_TagString: Untagged
+  m_Icon: {fileID: -964228994112308473, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5835627105953862605
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4664053667338244889}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0, y: -0, z: 1.36}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 3754238277459681727}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &1154777046756221071
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4664053667338244889}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.014534292, y: 0.53279966, z: 0.5913233}
+  m_Center: {x: 0.22476451, y: 0.053626552, z: -0.020931335}
+--- !u!114 &970282828311248100
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4664053667338244889}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 169cfde1657a1fd48ad48c3484e60a40, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ActivateAfterAnyHamsterCollision:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 970282828311248100}
+        m_TargetAssemblyTypeName: Obstacle, Assembly-CSharp
+        m_MethodName: HamsterStunAndRebound
+        m_Mode: 4
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 1
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  ActivateAfterPlayerHamsterCollision:
+    m_PersistentCalls:
+      m_Calls: []
+  ActivateAfterAIHamsterCollision:
+    m_PersistentCalls:
+      m_Calls: []
+--- !u!54 &1476782352191071203
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4664053667338244889}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 1
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &5399670834572947464
 GameObject:
   m_ObjectHideFlags: 0
@@ -255,6 +350,7 @@ Transform:
   m_LocalScale: {x: 41.57922, y: 31.243069, z: 47}
   m_Children:
   - {fileID: 7645110799774395791}
+  - {fileID: 5835627105953862605}
   m_Father: {fileID: 6767160305949115045}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0.011740167, y: 90.00001, z: -180}

@@ -3,11 +3,16 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(Animator))]
+[RequireComponent(typeof(Hamster))]
 public class HamsterAnimationController : MonoBehaviour
 {
-    private Animator _animator;
     [SerializeField] private float _minPlaybackLimit = -0.02f;
-    [SerializeField] private float _maxPlaybackLimit = 0.15f;
+    [SerializeField] private float _maxPlaybackLimit = 0.05f;
+
+    private float _maxHamsterSpeed;
+    private Hamster _hamster;
+    private HamsterMover _hamsterMover;
+    private Animator _animator;
 
     private const string _isRun = "IsRun";
     private const string _isFall = "IsFall";
@@ -20,15 +25,32 @@ public class HamsterAnimationController : MonoBehaviour
     private void Awake()
     {
         _animator = GetComponent<Animator>();
+        _hamster = GetComponent<Hamster>();
+        _hamsterMover = GetComponent<HamsterMover>();
+        _maxHamsterSpeed = _hamsterMover.MaxSpeed;
     }
 
-    public void CheckRunningSpeed(float speed, float maxSpeed)
+    private void OnEnable()
+    {
+        _hamster.FlatHorizontal += StartFlattenHorizontalAnimation;
+        _hamster.FlatVertically += StartFlattenVerticallyAnimation;
+        _hamsterMover.SpeedChanged += CheckRunningSpeed;
+    }
+
+    private void OnDisable()
+    {
+        _hamster.FlatHorizontal -= StartFlattenHorizontalAnimation;
+        _hamster.FlatVertically -= StartFlattenVerticallyAnimation;
+        _hamsterMover.SpeedChanged += CheckRunningSpeed;
+    }
+
+    public void CheckRunningSpeed(float speed)
     {
         if (speed > _maxPlaybackLimit || speed < _minPlaybackLimit)
         {
             _animator.SetBool(_isRun, true);
-            float runningSpeed = speed / maxSpeed;
-            if (speed > maxSpeed)
+            float runningSpeed = speed / _maxHamsterSpeed;
+            if (speed > _maxHamsterSpeed)
                 runningSpeed = 1f;
             _animator.SetFloat(_runningSpeed, runningSpeed);
         }

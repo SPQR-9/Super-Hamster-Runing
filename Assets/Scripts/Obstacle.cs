@@ -13,9 +13,9 @@ public class Obstacle : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if(collision.gameObject.TryGetComponent(out HamsterCollider hamsterCollider))
+        if(collision.gameObject.TryGetComponent(out Hamster hamster))
         {
-            _hamster = hamsterCollider.GetHamster();
+            _hamster = hamster;
             ActivateAfterAnyHamsterCollision?.Invoke();
             if (_hamster.Type == HamsterType.Player)
                 ActivateAfterPlayerHamsterCollision?.Invoke();

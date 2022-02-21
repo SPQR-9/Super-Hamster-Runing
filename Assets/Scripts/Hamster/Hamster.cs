@@ -2,43 +2,48 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
-using System;
+using TMPro;
+
 
 [RequireComponent(typeof(HamsterMover))]
 public class Hamster : MonoBehaviour
 {
-    public UnityEvent ActivateAfterFall;
     public UnityEvent ActivateAfterWin;
 
-    public UnityAction<Trap> TrapInformationHasBeenTransmitted;
+    public event UnityAction<Trap> TrapInformationHasBeenTransmitted;
+    public event UnityAction FlatVertically;
+    public event UnityAction FlatHorizontal;
 
     [SerializeField] private HamsterType _type;
+    [SerializeField] private TMP_Text _nameText;
 
-    private HamsterCollider[] _hamsterColliders;
+    private Transform _finishLine;
     private HamsterMover _hamsterMover;
     private bool _isWin = false;
     private bool _isLose = false;
+    private string _name;
+    private float _distanceToFinishLine = 0f;
+
+    public float DistanceToFinishLine => _distanceToFinishLine;
+    public string Name => _name;
 
     public HamsterType Type => _type;
     public bool IsWin => _isWin;
 
     private void Awake()
     {
-        _hamsterColliders = GetComponentsInChildren<HamsterCollider>();
         _hamsterMover = GetComponent<HamsterMover>();
     }
 
-    private void OnEnable()
+    public void SetName(string name)
     {
-        foreach (var hamsterCollider in _hamsterColliders)
-        {
-            hamsterCollider.SetHamster(this);
-        }
+        _name = name;
+        _nameText.text = name;
     }
 
-    public void Fall()
+    public void SetFinishLinePosition(Transform finishLine)
     {
-        ActivateAfterFall?.Invoke();
+        _finishLine = finishLine;
     }
 
     public void SetInfoAboutTrap(Trap trap)
@@ -58,12 +63,12 @@ public class Hamster : MonoBehaviour
 
     public void FlattenVertically()
     {
-        _hamsterMover.FlattenVertically();
+        FlatVertically?.Invoke();
     }
     
     public void FlattenHorizontal()
     {
-        _hamsterMover.FlattenHorizontal();
+        FlatHorizontal?.Invoke();
     }
 
     public void Win()
@@ -72,12 +77,12 @@ public class Hamster : MonoBehaviour
             return;
         _isWin = true;
         ActivateAfterWin?.Invoke();
-        _hamsterMover.Win();
     }
 
     public void Lose()
     {
         _isLose = true;
+        _distanceToFinishLine = Vector3.Distance(transform.position, _finishLine.position);
         _hamsterMover.Lose();
     }
 }

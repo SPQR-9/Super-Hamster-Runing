@@ -2,9 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(HamsterMover))]
 public class GroundChecker : MonoBehaviour
 {
-    [SerializeField] private HamsterMover _mover;
+    private HamsterMover _mover;
+
+    private void Awake()
+    {
+        _mover = GetComponent<HamsterMover>();
+    }
 
     private void OnCollisionStay(Collision collision)
     {
