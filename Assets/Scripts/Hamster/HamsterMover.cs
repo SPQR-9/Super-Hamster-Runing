@@ -5,7 +5,6 @@ using UnityEngine;
 
 [RequireComponent(typeof(HamsterAnimationController))]
 [RequireComponent(typeof(Rigidbody))]
-[RequireComponent(typeof(BoneRebinder))]
 public class HamsterMover : MonoBehaviour
 {
     [SerializeField] private bool _onGround = true;
@@ -20,7 +19,6 @@ public class HamsterMover : MonoBehaviour
     [SerializeField] private GameObject _stunEffect;
     [SerializeField] private float _winSpeed = 0.3f;
 
-    private BoneRebinder _boneRebinder;
     private Rigidbody _rigidbody;
     private HamsterAnimationController _animationController;
     private bool _isRun = false;
@@ -36,7 +34,6 @@ public class HamsterMover : MonoBehaviour
     {
         _rigidbody = GetComponent<Rigidbody>();
         _animationController = GetComponent<HamsterAnimationController>();
-        _boneRebinder = GetComponent<BoneRebinder>();
         _startZPosition = transform.position.z;
     }
 
@@ -130,7 +127,6 @@ public class HamsterMover : MonoBehaviour
     public void Win()
     {
         _isWin = true;
-        _boneRebinder.RebindeBones();
         _currentSpeed = _winSpeed;
         _animationController.StartWinningAnimation();
     }

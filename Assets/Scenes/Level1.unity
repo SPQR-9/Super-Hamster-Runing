@@ -1103,7 +1103,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 190447417}
-  m_LocalRotation: {x: 0.14547104, y: 0.4127171, z: -0.06695695, w: 0.8966714}
+  m_LocalRotation: {x: 0.14547105, y: 0.4127171, z: -0.06695696, w: 0.89667135}
   m_LocalPosition: {x: 29.63425, y: 4.467699, z: -6.1975965}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -5024,7 +5024,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 963194225}
-  m_LocalRotation: {x: 0.14547104, y: 0.4127171, z: -0.06695695, w: 0.8966714}
+  m_LocalRotation: {x: 0.14547105, y: 0.4127171, z: -0.06695696, w: 0.89667135}
   m_LocalPosition: {x: -8.000004, y: 14.5, z: -15}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -9386,7 +9386,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1843945369}
-  m_LocalRotation: {x: 0.13160169, y: 0.56853384, z: -0.09274226, w: 0.80675226}
+  m_LocalRotation: {x: 0.1316017, y: 0.56853384, z: -0.09274222, w: 0.8067523}
   m_LocalPosition: {x: 30.634253, y: 1.3176994, z: 3.8024044}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -10668,7 +10668,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2124608080}
-  m_LocalRotation: {x: 0.14097664, y: 0.04600539, z: -0.00655834, w: 0.9889217}
+  m_LocalRotation: {x: 0.14097664, y: 0.04600541, z: -0.006558342, w: 0.9889217}
   m_LocalPosition: {x: 45.734253, y: 3.0676994, z: -14.9976}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -11256,14 +11256,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 3627250510842849600, guid: 1b495431c85e8a548a0ea128daf7a93a, type: 3}
-      propertyPath: m_UpdateMode
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3627250510842849600, guid: 1b495431c85e8a548a0ea128daf7a93a, type: 3}
-      propertyPath: m_CullingMode
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 7257192133891306298, guid: 1b495431c85e8a548a0ea128daf7a93a, type: 3}
       propertyPath: m_RootOrder
       value: 1
@@ -11312,18 +11304,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: HamsterSimplePhysics
       objectReference: {fileID: 0}
-    - target: {fileID: 8069721999459084672, guid: 1b495431c85e8a548a0ea128daf7a93a, type: 3}
-      propertyPath: m_IsActive
-      value: 1
+    - target: {fileID: 8069721999459084673, guid: 1b495431c85e8a548a0ea128daf7a93a, type: 3}
+      propertyPath: _brakingForce
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8069721999459084673, guid: 1b495431c85e8a548a0ea128daf7a93a, type: 3}
+      propertyPath: _accelerationForce
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 8069721999459084701, guid: 1b495431c85e8a548a0ea128daf7a93a, type: 3}
       propertyPath: ActivateAfterWin.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
       objectReference: {fileID: 963194232}
-    - target: {fileID: 8069721999459084702, guid: 1b495431c85e8a548a0ea128daf7a93a, type: 3}
-      propertyPath: m_CollisionDetection
-      value: 0
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1b495431c85e8a548a0ea128daf7a93a, type: 3}
 --- !u!1001 &7613623230838023776
