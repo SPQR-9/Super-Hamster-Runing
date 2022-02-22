@@ -16,8 +16,6 @@ public class HamsterMover : MonoBehaviour
     [SerializeField] private float _accelerationForce = 1f;
     [SerializeField] private float _accelerationFlyingForce = 1f;
     [SerializeField] private float _reboundability = 0.3f;
-    [SerializeField] private bool _enableRepaymentZDeviation = true;
-    [SerializeField] private float _zLimitDeviation = 0.8f;
     [SerializeField] private GameObject _stunEffect;
     [SerializeField] private float _rotationSpeed = 12f;
 
@@ -29,14 +27,11 @@ public class HamsterMover : MonoBehaviour
     private bool _isWin = false;
     private bool _isLose = false;
 
-    private float _startZPosition;
-
     public float MaxSpeed => _maxSpeed;
 
     private void Awake()
     {
         _rigidbody = GetComponent<Rigidbody>();
-        _startZPosition = transform.position.z;
     }
 
     private void Update()
@@ -69,24 +64,14 @@ public class HamsterMover : MonoBehaviour
 
     private void Move()
     {
-        _direction = Vector3.right;
-        if (_enableRepaymentZDeviation)
-            ReturnToStartingZPosition();
+        _direction = (transform.forward.normalized + Vector3.right.normalized).normalized;
         _rigidbody.MovePosition(transform.position + _direction * _currentSpeed);
-        if (transform.rotation.eulerAngles.x > 70 || transform.rotation.eulerAngles.x < -40)
+        if (transform.rotation.eulerAngles.x > 65 || transform.rotation.eulerAngles.x < -65)
         {
             Quaternion targetRotation = Quaternion.Lerp(transform.rotation, Quaternion.LookRotation(Vector3.right), _rotationSpeed * Time.deltaTime);
             _rigidbody.MoveRotation(targetRotation);
         }
         SpeedChanged(_currentSpeed);
-    }
-
-    private void ReturnToStartingZPosition()
-    {
-        if (transform.position.z > _startZPosition + _zLimitDeviation)
-            _direction = new Vector3(1, 0, -0.3f);
-        else if (transform.position.z < _startZPosition - _zLimitDeviation)
-            _direction = new Vector3(1, 0, 0.3f);
     }
 
     public void PutOnGround()
