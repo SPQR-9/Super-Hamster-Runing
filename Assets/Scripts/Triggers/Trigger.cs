@@ -52,9 +52,9 @@ public class Trigger : MonoBehaviour
         Instantiate(gameObject, _otherCollider.transform);
     }
 
-    public void Win()
+    public void Finish()
     {
-        _hamster.Win();
+        _hamster.Finish();
     }
 
     public void SetNewSpawnPointInHamster(Transform transformPoint)

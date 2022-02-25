@@ -17,24 +17,20 @@ public class Hamster : MonoBehaviour
     public event UnityAction Discharged;
     public event UnityAction Respauned;
     public event UnityAction Won;
+    public event UnityAction<Hamster> Finished;
+    public event UnityAction Losed;
 
     [SerializeField] private HamsterType _type;
     [SerializeField] private TMP_Text _nameText;
     [SerializeField] private Transform _respawnPoint;
 
-    private Transform _finishLine;
     private HamsterMover _hamsterMover;
-    private bool _isWin = false;
-    private bool _isLose = false;
     private string _name;
-    private float _distanceToFinishLine = 0f;
     private Coroutine _respawnCoroutine = null;
 
-    public float DistanceToFinishLine => _distanceToFinishLine;
     public string Name => _name;
 
     public HamsterType Type => _type;
-    public bool IsWin => _isWin;
 
     private void Awake()
     {
@@ -45,11 +41,6 @@ public class Hamster : MonoBehaviour
     {
         _name = name;
         _nameText.text = name;
-    }
-
-    public void SetFinishLinePosition(Transform finishLine)
-    {
-        _finishLine = finishLine;
     }
 
     public void SetInfoAboutTrap(Trap trap)
@@ -103,18 +94,25 @@ public class Hamster : MonoBehaviour
 
     public void ToFall()
     {
-        
         _hamsterMover.DisableRigidbodyRestriction();
         Fall?.Invoke();
     }
 
     public void Win()
     {
-        if (_isLose)
-            return;
-        _isWin = true;
-        _hamsterMover.Win();
         Won?.Invoke();
+    }
+
+    public void Lose()
+    {
+        _hamsterMover.ProhibitMovement();
+        Losed?.Invoke();
+    }
+
+    public void Finish()
+    {
+        _hamsterMover.ProhibitMovement();
+        Finished?.Invoke(this);
     }
 
     public void Respawn()
@@ -125,13 +123,6 @@ public class Hamster : MonoBehaviour
         Respauned?.Invoke();
         ActivateAfterRespawn?.Invoke();
         
-    }
-
-    public void Lose()
-    {
-        _isLose = true;
-        _distanceToFinishLine = Vector3.Distance(transform.position, _finishLine.position);
-        _hamsterMover.Lose();
     }
 
     private IEnumerator WaitForPauseBeforeRespawn(float time)

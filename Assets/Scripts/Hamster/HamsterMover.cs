@@ -24,8 +24,7 @@ public class HamsterMover : MonoBehaviour
     private bool _isRun = false;
     private float _currentSpeed;
     private Vector3 _direction;
-    private bool _isWin = false;
-    private bool _isLose = false;
+    private bool _isStoped = false;
     private bool _isRestrictionOnCorners = true;
     private float _stunTimer = 0f;
     private RigidbodyConstraints _rigidbodyConstraints;
@@ -43,11 +42,11 @@ public class HamsterMover : MonoBehaviour
         _direction = transform.forward.normalized;
         if (_stunTimer>0)
             _stunTimer -= Time.deltaTime; 
-        if (_onGround && _isRun && _stunTimer <= 0 && !_isWin && !_isLose)
+        if (_onGround && _isRun && _stunTimer <= 0 && !_isStoped)
             _currentSpeed = Mathf.Lerp(_currentSpeed, _maxSpeed, _accelerationForce * Time.deltaTime);
-        else if(!_onGround && _isRun && _stunTimer <= 0 && !_isWin && !_isLose)
+        else if(!_onGround && _isRun && _stunTimer <= 0 && !_isStoped)
         {
-            _direction = (transform.forward.normalized + Vector3.right.normalized).normalized;
+            _direction = Vector3.right.normalized;
             _currentSpeed = Mathf.Lerp(_currentSpeed, _maxFlyingSpeed, _accelerationFlyingForce * Time.deltaTime);
         }
         else 
@@ -133,13 +132,8 @@ public class HamsterMover : MonoBehaviour
         _rigidbody.AddForce(direction * _discardForce, ForceMode.Impulse);
     }
 
-    public void Win()
+    public void ProhibitMovement()
     {
-        _isWin = true;
-    }
-
-    public void Lose()
-    {
-        _isLose = true;
+        _isStoped = true;
     }
 }

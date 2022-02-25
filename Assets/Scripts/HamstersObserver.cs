@@ -5,22 +5,23 @@ using UnityEngine.Events;
 
 public class HamstersObserver : MonoBehaviour
 {
-    public UnityEvent ActivateAfterWin;
-    public UnityEvent ActivateAfterLose;
-    public UnityEvent ActivateAfterAWhileAfterWin;
-    public UnityEvent ActivateAfterAWhileAfterLose;
+    public UnityEvent ActivateAfterPlayerWin;
+    public UnityEvent ActivateAfterPlayerLose;
+    public UnityEvent ActivateAfterAWhileAfterPlayerFinished;
 
 
-    [SerializeField] private List<Hamster> _hamsters;
+    [SerializeField] private List<Hamster> _notFinishedHamsters;
     [SerializeField] private string _playerName = "You";
     [SerializeField] private List<string> _aIHamsterNames;
     [SerializeField] private Transform _finishLine;
     [SerializeField] private LeaderboardChecker _leaderboardChecker;
     [SerializeField] private float _activationTime = 1f;
 
+    private bool _isWinnerHamsterFound = false;
+
     private void Awake()
     {
-        foreach (var hamster in _hamsters)
+        foreach (var hamster in _notFinishedHamsters)
         {
             if (hamster.Type == HamsterType.Player)
                 hamster.SetName(_playerName);
@@ -30,43 +31,92 @@ public class HamstersObserver : MonoBehaviour
                 hamster.SetName(_aIHamsterNames[randNameIndex]);
                 _aIHamsterNames.RemoveAt(randNameIndex);
             }
-            hamster.SetFinishLinePosition(_finishLine);
         }
     }
 
-    public void CheckWinnerHamster()
+    private void OnEnable()
     {
-        Hamster winner = null;
-        foreach (var hamster in _hamsters)
+        foreach (var hamster in _notFinishedHamsters)
         {
-            if(hamster.IsWin)
-                winner = hamster;
-            else
-                hamster.Lose();
+            hamster.Finished += CheckFinishedHamster;
         }
-        _leaderboardChecker.PutInTheirPlaces(_hamsters);
-        if (winner.Type == HamsterType.Player)
+    }
+
+    private void OnDisable()
+    {
+        foreach (var hamster in _notFinishedHamsters)
         {
-            StartCoroutine(WaitAfterAWhileAfterWinning());
-            ActivateAfterWin?.Invoke();
+            hamster.Finished -= CheckFinishedHamster;
+        }
+    }
+
+    private void CheckFinishedHamster(Hamster hamster)
+    {
+        _leaderboardChecker.SetHamsterInPlace(hamster);
+        if (!_isWinnerHamsterFound)
+        {
+            _isWinnerHamsterFound = true;
+            hamster.Win();
+            RemoveCurrentHamsterFromTheList(hamster);
+            if (hamster.Type == HamsterType.Player)
+            {
+                StartCoroutine(WaitAfterAWhileAfterPlayerFinishing());
+                ActivateAfterPlayerWin?.Invoke();
+                DeterminePlacesByDistanceToFinishLine();
+            }
         }
         else
         {
-            StartCoroutine(WaitAfterAWhileAfterLosing());
-            ActivateAfterLose?.Invoke();
+            hamster.Lose();
+            RemoveCurrentHamsterFromTheList(hamster);
+            if (hamster.Type == HamsterType.Player)
+            {
+                StartCoroutine(WaitAfterAWhileAfterPlayerFinishing());
+                ActivateAfterPlayerLose?.Invoke();
+                DeterminePlacesByDistanceToFinishLine();
+            }
         }
     }
 
-
-    private IEnumerator WaitAfterAWhileAfterWinning()
+    private void RemoveCurrentHamsterFromTheList(Hamster currentHamster)
     {
-        yield return new WaitForSeconds(_activationTime);
-        ActivateAfterAWhileAfterWin?.Invoke();
+        for (int i = 0; i < _notFinishedHamsters.Count; i++)
+        {
+            if(currentHamster.Name==_notFinishedHamsters[i].Name)
+            {
+                _notFinishedHamsters.RemoveAt(i);
+                break;
+            }
+        }
     }
-    
-    private IEnumerator WaitAfterAWhileAfterLosing()
+
+    private void DeterminePlacesByDistanceToFinishLine()
+    {
+        while(_notFinishedHamsters.Count>0)
+        {
+            int indexHamsterMinDistance = -1;
+            for (int i = 0; i < _notFinishedHamsters.Count; i++)
+            {
+                if (indexHamsterMinDistance == -1)
+                    indexHamsterMinDistance = i;
+                else if (Vector3.Distance(_notFinishedHamsters[i].transform.position, _finishLine.position) <
+                         Vector3.Distance(_notFinishedHamsters[indexHamsterMinDistance].transform.position, _finishLine.position))
+                        indexHamsterMinDistance = i;
+            }
+            if (indexHamsterMinDistance == -1)
+                break;
+            else
+            { 
+                _notFinishedHamsters[indexHamsterMinDistance].Lose();
+                _leaderboardChecker.SetHamsterInPlace(_notFinishedHamsters[indexHamsterMinDistance]);
+                RemoveCurrentHamsterFromTheList(_notFinishedHamsters[indexHamsterMinDistance]);
+            }
+        }
+    }
+
+    private IEnumerator WaitAfterAWhileAfterPlayerFinishing()
     {
         yield return new WaitForSeconds(_activationTime);
-        ActivateAfterAWhileAfterLose?.Invoke();
+        ActivateAfterAWhileAfterPlayerFinished?.Invoke();
     }
 }
