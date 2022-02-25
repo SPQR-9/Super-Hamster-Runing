@@ -17,6 +17,7 @@ public class HamsterAnimationController : MonoBehaviour
     private const string _isRun = "IsRun";
     private const string _isFall = "IsFall";
     private const string _isWin = "IsWin";
+    private const string _isLose = "IsLose";
     private const string _runningSpeed = "RunningSpeed";
     private const string _flatVertically = "FlatVertically";
     private const string _flatHorizontal = "FlatHorizontal";
@@ -38,6 +39,7 @@ public class HamsterAnimationController : MonoBehaviour
         _hamster.Fall += StartFallAnimation;
         _hamster.Won += StartWinningAnimation;
         _hamster.Respauned += DisableFallAnimation;
+        _hamster.Losed += StartLoseAnimation;
     }
 
     private void OnDisable()
@@ -48,6 +50,7 @@ public class HamsterAnimationController : MonoBehaviour
         _hamster.Fall -= StartFallAnimation;
         _hamster.Won -= StartWinningAnimation;
         _hamster.Respauned -= DisableFallAnimation;
+        _hamster.Losed -= StartLoseAnimation;
     }
 
     public void CheckRunningSpeed(float speed)
@@ -75,6 +78,11 @@ public class HamsterAnimationController : MonoBehaviour
     public void StartFlattenVerticallyAnimation()
     {
         _animator.SetBool(_flatVertically,true);
+    }
+
+    public void StartLoseAnimation()
+    {
+        _animator.SetBool(_isLose, true);
     }
     
     public void DisableFallAnimation()

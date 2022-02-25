@@ -19,6 +19,7 @@ public class HamsterMover : MonoBehaviour
     [SerializeField] private float _reboundability = 0.3f;
     [SerializeField] private float _rotationSpeed = 12f;
     [SerializeField] private float _discardForce = 250f;
+    [SerializeField] private float _criticalAngular = 65;
 
     private Rigidbody _rigidbody;
     private bool _isRun = false;
@@ -39,7 +40,10 @@ public class HamsterMover : MonoBehaviour
 
     private void Update()
     {
-        _direction = transform.forward.normalized;
+        if(transform.rotation.eulerAngles.x > _criticalAngular || transform.rotation.eulerAngles.x < -_criticalAngular)
+            _direction = Vector3.right.normalized;
+        else
+            _direction = transform.forward.normalized;
         if (_stunTimer>0)
             _stunTimer -= Time.deltaTime; 
         if (_onGround && _isRun && _stunTimer <= 0 && !_isStoped)
@@ -59,7 +63,7 @@ public class HamsterMover : MonoBehaviour
 
     private void AngleChecker()
     {
-        if (transform.rotation.eulerAngles.x > 65 || transform.rotation.eulerAngles.x < -65)
+        if (transform.rotation.eulerAngles.x > _criticalAngular || transform.rotation.eulerAngles.x < -_criticalAngular)
         {
             Quaternion targetRotation = Quaternion.Lerp(transform.rotation, Quaternion.LookRotation(Vector3.right), _rotationSpeed * Time.deltaTime);
             _rigidbody.MoveRotation(targetRotation);
