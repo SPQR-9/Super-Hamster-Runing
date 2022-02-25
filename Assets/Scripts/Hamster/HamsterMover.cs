@@ -40,12 +40,16 @@ public class HamsterMover : MonoBehaviour
 
     private void Update()
     {
-        if(_stunTimer>0)
+        _direction = transform.forward.normalized;
+        if (_stunTimer>0)
             _stunTimer -= Time.deltaTime; 
         if (_onGround && _isRun && _stunTimer <= 0 && !_isWin && !_isLose)
             _currentSpeed = Mathf.Lerp(_currentSpeed, _maxSpeed, _accelerationForce * Time.deltaTime);
         else if(!_onGround && _isRun && _stunTimer <= 0 && !_isWin && !_isLose)
+        {
+            _direction = (transform.forward.normalized + Vector3.right.normalized).normalized;
             _currentSpeed = Mathf.Lerp(_currentSpeed, _maxFlyingSpeed, _accelerationFlyingForce * Time.deltaTime);
+        }
         else 
             _currentSpeed = Mathf.Lerp(_currentSpeed, 0, _brakingForce * Time.deltaTime);
         Move();
@@ -63,6 +67,12 @@ public class HamsterMover : MonoBehaviour
         }
     }
 
+    private void Move()
+    {
+        _rigidbody.MovePosition(transform.position + _direction * _currentSpeed);
+        SpeedChanged(_currentSpeed);
+    }
+
     public void Run()
     {
         _isRun = true;
@@ -71,13 +81,6 @@ public class HamsterMover : MonoBehaviour
     public void Stop()
     {
         _isRun = false;
-    }
-
-    private void Move()
-    {
-        _direction = (transform.forward.normalized + Vector3.right.normalized).normalized;
-        _rigidbody.MovePosition(transform.position + _direction * _currentSpeed);
-        SpeedChanged(_currentSpeed);
     }
 
     public void PutOnGround()
