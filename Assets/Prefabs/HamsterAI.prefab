@@ -763,6 +763,7 @@ GameObject:
   - component: {fileID: 2932270058179553112}
   - component: {fileID: 2642923825960703772}
   - component: {fileID: 5427088586369678980}
+  - component: {fileID: 2081114402698744389}
   m_Layer: 7
   m_Name: HamsterAI
   m_TagString: Untagged
@@ -821,14 +822,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _onGround: 1
-  _maxSpeed: 0.45
-  _maxFlyingSpeed: 0.2
+  _maxSpeed: 0.44
+  _maxFlyingSpeed: 0.05
   _brakingForce: 5
   _accelerationForce: 3.5
-  _accelerationFlyingForce: 0.3
+  _accelerationFlyingForce: 0.9
   _reboundability: 0.4
-  _stunEffect: {fileID: 2933826310934387446}
   _rotationSpeed: 12
+  _discardForce: 400
 --- !u!114 &2642923825960703771
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -841,59 +842,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 40645692d1d4820428c528ec53209bab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ActivateAfterWin:
+  ActivateAfterRespawn:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 2642923825960703768}
-        m_TargetAssemblyTypeName: UnityEngine.Rigidbody, UnityEngine
-        m_MethodName: set_freezeRotation
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 1
-        m_CallState: 2
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: WinHamsterChecker, Assembly-CSharp
-        m_MethodName: CheckWinnerHamster
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 1
-        m_CallState: 2
-      - m_Target: {fileID: 2642923825960703770}
-        m_TargetAssemblyTypeName: HamsterAnimationController, Assembly-CSharp
-        m_MethodName: StartWinningAnimation
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 1
-        m_CallState: 2
-      - m_Target: {fileID: 2642923825960703751}
-        m_TargetAssemblyTypeName: HamsterMover, Assembly-CSharp
-        m_MethodName: Win
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 1
-        m_CallState: 2
+      m_Calls: []
   _type: 1
   _nameText: {fileID: 719400102}
+  _respawnPoint: {fileID: 0}
 --- !u!114 &2642923825960703770
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -934,10 +888,10 @@ CapsuleCollider:
   m_Material: {fileID: 13400000, guid: c5f5a9fac28eae74d99357a048cc19f3, type: 2}
   m_IsTrigger: 0
   m_Enabled: 1
-  m_Radius: 0.89980257
+  m_Radius: 0.9190538
   m_Height: 4.035635
   m_Direction: 2
-  m_Center: {x: -0.2966025, y: 0.90873647, z: -1.0213714}
+  m_Center: {x: 0.17989182, y: 0.89199305, z: -1.0213714}
 --- !u!114 &2642923825960703772
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -962,6 +916,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 48af399678609884c8beb2629c99e898, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &2081114402698744389
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2642923825960703750}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b5dffcb0f95dfb24ab4c8826956a1eef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _spawnEffect: {fileID: 4162369151577367120, guid: 5a0a0878a2909a545a8c905f63fd4b26, type: 3}
+  _dischargeEffect: {fileID: 121052, guid: 45b74d42e5559bf49a14a707b4842b51, type: 3}
+  _stunEffect: {fileID: 2933826310934387446}
 --- !u!1 &2797998017395883868
 GameObject:
   m_ObjectHideFlags: 0

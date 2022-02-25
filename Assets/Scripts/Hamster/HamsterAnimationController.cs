@@ -35,13 +35,19 @@ public class HamsterAnimationController : MonoBehaviour
         _hamster.FlatHorizontal += StartFlattenHorizontalAnimation;
         _hamster.FlatVertically += StartFlattenVerticallyAnimation;
         _hamsterMover.SpeedChanged += CheckRunningSpeed;
+        _hamster.Fall += StartFallAnimation;
+        _hamster.Won += StartWinningAnimation;
+        _hamster.Respauned += DisableFallAnimation;
     }
 
     private void OnDisable()
     {
         _hamster.FlatHorizontal -= StartFlattenHorizontalAnimation;
         _hamster.FlatVertically -= StartFlattenVerticallyAnimation;
-        _hamsterMover.SpeedChanged += CheckRunningSpeed;
+        _hamsterMover.SpeedChanged -= CheckRunningSpeed;
+        _hamster.Fall -= StartFallAnimation;
+        _hamster.Won -= StartWinningAnimation;
+        _hamster.Respauned -= DisableFallAnimation;
     }
 
     public void CheckRunningSpeed(float speed)
@@ -71,6 +77,11 @@ public class HamsterAnimationController : MonoBehaviour
         _animator.SetBool(_flatVertically,true);
     }
     
+    public void DisableFallAnimation()
+    {
+        _animator.SetBool(_isFall, false);
+    }
+
     public void StartFlattenHorizontalAnimation()
     {
         _animator.SetBool(_flatHorizontal,true);

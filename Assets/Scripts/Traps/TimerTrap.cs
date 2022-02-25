@@ -8,14 +8,9 @@ public class TimerTrap : Trap
     [SerializeField] private float _responseTime;
 
     private float _currentTime = 0;
-    private Animator _animator;
     private const string _response = "Response";
     private const string _idle = "Idle";
 
-    private void Awake()
-    {
-        _animator = GetComponent<Animator>();
-    }
 
     private void Update()
     {

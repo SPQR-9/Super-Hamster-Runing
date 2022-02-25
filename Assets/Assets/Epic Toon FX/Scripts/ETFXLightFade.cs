@@ -33,6 +33,7 @@ namespace EpicToonFX
                 if (killAfterLife && li.intensity <= 0)
                     //Destroy(gameObject);
                     Destroy(gameObject.GetComponent<Light>());
+                /*gameObject.SetActive(false);*/
             }
         }
     }

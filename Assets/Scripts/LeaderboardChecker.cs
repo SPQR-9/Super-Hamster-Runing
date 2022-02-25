@@ -1,11 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using TMPro;
 
 public class LeaderboardChecker : MonoBehaviour
 {
     [SerializeField] private List<TMP_Text> _placesTexts;
+    [SerializeField] private Color _playerTextColor;
+    [SerializeField] private List<Image> _placeImages;
+    [SerializeField] private Sprite _playerPlaceSprite;
 
     private List<Hamster> _hamstersOnBoard;
 
@@ -19,22 +23,29 @@ public class LeaderboardChecker : MonoBehaviour
             {
                 if (hamsters[j].IsWin)
                 {
-                    _placesTexts[i].text = $"{i + 1}) {_hamstersOnBoard[j].Name}";
+                    SetName(i, j);
                     hamsters.RemoveAt(j);
                     minDistanceHamsterIndex = -1;
                     break;
                 }
-                else
-                {
-                    if (minDistanceHamsterIndex == -1 || hamsters[minDistanceHamsterIndex].DistanceToFinishLine > _hamstersOnBoard[j].DistanceToFinishLine)
-                        minDistanceHamsterIndex = j;
-                }
+                else if (minDistanceHamsterIndex == -1 || hamsters[minDistanceHamsterIndex].DistanceToFinishLine > _hamstersOnBoard[j].DistanceToFinishLine)
+                    minDistanceHamsterIndex = j;
             }
-            if(minDistanceHamsterIndex>=0)
+            if (minDistanceHamsterIndex >= 0)
             {
-                _placesTexts[i].text = $"{i + 1}) {hamsters[minDistanceHamsterIndex].Name}";
-                _hamstersOnBoard.RemoveAt(minDistanceHamsterIndex);
+                SetName(i, minDistanceHamsterIndex);
+                hamsters.RemoveAt(minDistanceHamsterIndex);
             }
+        }
+    }
+
+    private void SetName(int placesTextsindex, int hamsterIndex)
+    {
+        _placesTexts[placesTextsindex].text = _hamstersOnBoard[hamsterIndex].Name;
+        if (_hamstersOnBoard[hamsterIndex].Type == HamsterType.Player)
+        {
+            _placeImages[placesTextsindex].sprite = _playerPlaceSprite;
+            _placesTexts[placesTextsindex].color = _playerTextColor;
         }
     }
 }

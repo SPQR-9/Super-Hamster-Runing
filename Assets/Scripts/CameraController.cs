@@ -8,6 +8,7 @@ public class CameraController : MonoBehaviour
     private Animator _animator;
 
     private const string _cameraNumber = "CameraNumber";
+    private const string _kill = "Kill";
 
     private void Awake()
     {
@@ -17,5 +18,15 @@ public class CameraController : MonoBehaviour
     public void ChangeCameraAngle(int number)
     {
         _animator.SetInteger(_cameraNumber, number);
+    }
+
+    public void EnableKillCamera()
+    {
+        _animator.SetBool(_kill, true);
+    }
+
+    public void DisableKillCamera()
+    {
+        _animator.SetBool(_kill, false);
     }
 }
