@@ -13,52 +13,19 @@ MonoBehaviour:
   m_Name: Main Camera Blends
   m_EditorClassIdentifier: 
   m_CustomBlends:
-  - m_From: Cinemashine_Settings
-    m_To: Cinemashine_Settings 2
+  - m_From: Standart
+    m_To: Near
     m_Blend:
       m_Style: 1
-      m_Time: 2
+      m_Time: 1.5
       m_CustomCurve:
         serializedVersion: 2
         m_Curve: []
         m_PreInfinity: 0
         m_PostInfinity: 0
         m_RotationOrder: 0
-  - m_From: Cinemashine_Settings 2
-    m_To: Cinemashine_Settings
-    m_Blend:
-      m_Style: 1
-      m_Time: 2
-      m_CustomCurve:
-        serializedVersion: 2
-        m_Curve: []
-        m_PreInfinity: 0
-        m_PostInfinity: 0
-        m_RotationOrder: 0
-  - m_From: Cinemashine_Settings3
-    m_To: Cinemashine_Settings
-    m_Blend:
-      m_Style: 1
-      m_Time: 2
-      m_CustomCurve:
-        serializedVersion: 2
-        m_Curve: []
-        m_PreInfinity: 0
-        m_PostInfinity: 0
-        m_RotationOrder: 0
-  - m_From: Cinemashine_Settings3
-    m_To: Cinemashine_Settings 2
-    m_Blend:
-      m_Style: 1
-      m_Time: 2
-      m_CustomCurve:
-        serializedVersion: 2
-        m_Curve: []
-        m_PreInfinity: 0
-        m_PostInfinity: 0
-        m_RotationOrder: 0
-  - m_From: Cinemashine_Settings 2
-    m_To: Kill_Camera
+  - m_From: Side
+    m_To: Standart
     m_Blend:
       m_Style: 1
       m_Time: 1
@@ -68,8 +35,8 @@ MonoBehaviour:
         m_PreInfinity: 0
         m_PostInfinity: 0
         m_RotationOrder: 0
-  - m_From: Cinemashine_Settings
-    m_To: Kill_Camera
+  - m_From: Side
+    m_To: Near
     m_Blend:
       m_Style: 1
       m_Time: 1
@@ -79,11 +46,44 @@ MonoBehaviour:
         m_PreInfinity: 0
         m_PostInfinity: 0
         m_RotationOrder: 0
-  - m_From: Cinemashine_Settings3
+  - m_From: Near
+    m_To: Standart
+    m_Blend:
+      m_Style: 1
+      m_Time: 1.5
+      m_CustomCurve:
+        serializedVersion: 2
+        m_Curve: []
+        m_PreInfinity: 0
+        m_PostInfinity: 0
+        m_RotationOrder: 0
+  - m_From: Standart
     m_To: Kill_Camera
     m_Blend:
       m_Style: 1
-      m_Time: 1
+      m_Time: 0.5
+      m_CustomCurve:
+        serializedVersion: 2
+        m_Curve: []
+        m_PreInfinity: 0
+        m_PostInfinity: 0
+        m_RotationOrder: 0
+  - m_From: Near
+    m_To: Kill_Camera
+    m_Blend:
+      m_Style: 1
+      m_Time: 0.5
+      m_CustomCurve:
+        serializedVersion: 2
+        m_Curve: []
+        m_PreInfinity: 0
+        m_PostInfinity: 0
+        m_RotationOrder: 0
+  - m_From: Side
+    m_To: Kill_Camera
+    m_Blend:
+      m_Style: 1
+      m_Time: 0.5
       m_CustomCurve:
         serializedVersion: 2
         m_Curve: []

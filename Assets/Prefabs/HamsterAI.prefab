@@ -799,7 +799,7 @@ Animator:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2642923825960703750}
   m_Enabled: 1
-  m_Avatar: {fileID: 9000000, guid: 1792cd1546fbbd745b05a0424aa4c8a1, type: 3}
+  m_Avatar: {fileID: 9000000, guid: b0ff56f8ea38d4446aba378ba484f59e, type: 3}
   m_Controller: {fileID: 9100000, guid: 8fb52b43e5c5bf44d968336a3a942b20, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 1
@@ -822,14 +822,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _onGround: 1
-  _maxSpeed: 0.44
+  _maxSpeed: 0.5
   _maxFlyingSpeed: 0.05
   _brakingForce: 5
-  _accelerationForce: 3.5
-  _accelerationFlyingForce: 0.9
+  _accelerationForce: 2.5
+  _accelerationFlyingForce: 1
   _reboundability: 0.4
-  _rotationSpeed: 12
+  _rotationSpeed: 6
   _discardForce: 400
+  _criticalAngular: 65
 --- !u!114 &2642923825960703771
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -877,7 +878,7 @@ Rigidbody:
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 104
-  m_CollisionDetection: 0
+  m_CollisionDetection: 2
 --- !u!136 &2932270058179553112
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -971,7 +972,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3950228373558702175}
-  m_Layer: 6
+  m_Layer: 7
   m_Name: Head
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1096,7 +1097,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 212845463959886554}
-  m_Layer: 6
+  m_Layer: 7
   m_Name: Cheek_L
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1126,7 +1127,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8314355330858628219}
-  m_Layer: 6
+  m_Layer: 7
   m_Name: HeadPosition
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1286,7 +1287,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7993559267607669778}
-  m_Layer: 6
+  m_Layer: 7
   m_Name: Jaw
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1752,7 +1753,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1511394724886012221}
-  m_Layer: 6
+  m_Layer: 7
   m_Name: Ear_L
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1814,7 +1815,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5817822643348049479}
-  m_Layer: 6
+  m_Layer: 7
   m_Name: Ear_R
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1966,7 +1967,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7646513077759406932}
-  m_Layer: 6
+  m_Layer: 7
   m_Name: Cheek_R
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2030,7 +2031,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1846532664448058, guid: 9dc433ef802e69346a8909ce73690d4e, type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 1846532664448058, guid: 9dc433ef802e69346a8909ce73690d4e, type: 3}
       propertyPath: m_IsActive
@@ -2038,7 +2039,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1885241299353304, guid: 9dc433ef802e69346a8909ce73690d4e, type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 4378000130136788, guid: 9dc433ef802e69346a8909ce73690d4e, type: 3}
       propertyPath: m_RootOrder

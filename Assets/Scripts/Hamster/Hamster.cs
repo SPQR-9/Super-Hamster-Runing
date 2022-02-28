@@ -23,13 +23,14 @@ public class Hamster : MonoBehaviour
     [SerializeField] private HamsterType _type;
     [SerializeField] private TMP_Text _nameText;
     [SerializeField] private Transform _respawnPoint;
+    [SerializeField] private Transform _pointOfVictoryAnimation;
 
     private HamsterMover _hamsterMover;
     private string _name;
     private Coroutine _respawnCoroutine = null;
 
-    public string Name => _name;
 
+    public string Name => _name;
     public HamsterType Type => _type;
 
     private void Awake()
@@ -101,6 +102,8 @@ public class Hamster : MonoBehaviour
     public void Win()
     {
         Won?.Invoke();
+        _hamsterMover.DisablePhysics();
+        transform.parent = _pointOfVictoryAnimation;
     }
 
     public void Lose()
@@ -117,12 +120,14 @@ public class Hamster : MonoBehaviour
 
     public void Respawn()
     {
-        transform.SetPositionAndRotation(_respawnPoint.position,_respawnPoint.rotation);
+        _hamsterMover.DisableKinematic();
+        transform.position = _respawnPoint.position;
+        transform.rotation = _respawnPoint.rotation;
+        _hamsterMover.EnableKinematic();
         _hamsterMover.EnableRigidbodyRestriction();
         SetInfoAboutTrap(null);
         Respauned?.Invoke();
         ActivateAfterRespawn?.Invoke();
-        
     }
 
     private IEnumerator WaitForPauseBeforeRespawn(float time)

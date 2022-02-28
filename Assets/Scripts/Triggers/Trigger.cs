@@ -75,9 +75,9 @@ public class Trigger : MonoBehaviour
     public void DischargeIntoWater(bool isRightDirection)
     {
         if (isRightDirection)
-            _hamster.DischargeIntoWater(Vector3.back);
+            _hamster.DischargeIntoWater(_hamster.transform.right.normalized);
         else
-            _hamster.DischargeIntoWater(Vector3.forward);
+            _hamster.DischargeIntoWater(-_hamster.transform.right.normalized);
     }
 
 }

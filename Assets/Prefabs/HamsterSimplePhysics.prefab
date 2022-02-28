@@ -327,7 +327,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2719672376318841492}
-  m_Layer: 6
+  m_Layer: 7
   m_Name: Jaw
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -600,7 +600,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2012522504343007425}
-  m_Layer: 6
+  m_Layer: 7
   m_Name: Ear_R
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -630,7 +630,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6893156351613001659}
-  m_Layer: 6
+  m_Layer: 7
   m_Name: Ear_L
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -723,7 +723,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2399639533531319762}
-  m_Layer: 6
+  m_Layer: 7
   m_Name: Cheek_R
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1279,7 +1279,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 9044041236985843417}
-  m_Layer: 6
+  m_Layer: 7
   m_Name: Head
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1476,7 +1476,7 @@ Animator:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8069721999459084672}
   m_Enabled: 1
-  m_Avatar: {fileID: 9000000, guid: 1792cd1546fbbd745b05a0424aa4c8a1, type: 3}
+  m_Avatar: {fileID: 9000000, guid: b0ff56f8ea38d4446aba378ba484f59e, type: 3}
   m_Controller: {fileID: 9100000, guid: 8fb52b43e5c5bf44d968336a3a942b20, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 1
@@ -1505,7 +1505,9 @@ MonoBehaviour:
   _accelerationForce: 3
   _accelerationFlyingForce: 0.9
   _reboundability: 0.4
-  _rotationSpeed: 8
+  _rotationSpeed: 9.5
+  _discardForce: 400
+  _criticalAngular: 65
 --- !u!114 &8069721999459084701
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1518,12 +1520,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 40645692d1d4820428c528ec53209bab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ActivateAfterWin:
+  ActivateAfterRespawn:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: WinHamsterChecker, Assembly-CSharp
-        m_MethodName: CheckWinnerHamster
+        m_TargetAssemblyTypeName: CameraController, Assembly-CSharp
+        m_MethodName: DisableKillCamera
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1531,11 +1533,8 @@ MonoBehaviour:
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
-          m_BoolArgument: 1
+          m_BoolArgument: 0
         m_CallState: 2
-  ActivateAfterRespawn:
-    m_PersistentCalls:
-      m_Calls: []
   _type: 0
   _nameText: {fileID: 4400199324496966676}
   _respawnPoint: {fileID: 0}
@@ -1568,7 +1567,7 @@ Rigidbody:
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 104
-  m_CollisionDetection: 0
+  m_CollisionDetection: 2
 --- !u!136 &7197139532077750750
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -1619,7 +1618,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4049407110613568253}
-  m_Layer: 6
+  m_Layer: 7
   m_Name: HeadPosition
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1656,7 +1655,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5306587824962004060}
-  m_Layer: 6
+  m_Layer: 7
   m_Name: Cheek_L
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1942,8 +1941,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4284471807
-  m_fontColor: {r: 1, g: 0.8490528, b: 0.3726415, a: 1}
+    rgba: 4281308415
+  m_fontColor: {r: 1, g: 0.5822667, b: 0.18396229, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -2031,7 +2030,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1846532664448058, guid: 9dc433ef802e69346a8909ce73690d4e, type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 1846532664448058, guid: 9dc433ef802e69346a8909ce73690d4e, type: 3}
       propertyPath: m_IsActive
@@ -2039,7 +2038,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1885241299353304, guid: 9dc433ef802e69346a8909ce73690d4e, type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 4378000130136788, guid: 9dc433ef802e69346a8909ce73690d4e, type: 3}
       propertyPath: m_RootOrder
