@@ -79,11 +79,9 @@ public class HamsterMover : MonoBehaviour
     private void YAngleChecker()
     {
         if (transform.localEulerAngles.x > _criticalAngular && transform.rotation.eulerAngles.x < 180 ||
-            transform.localEulerAngles.x < 360f - _criticalAngular/2 && transform.localEulerAngles.x > 180) 
+            transform.localEulerAngles.x < 360f - _criticalAngular/2 && transform.localEulerAngles.x > 180)
         {
-            Quaternion targetRotation = Quaternion.Lerp(transform.rotation, Quaternion.LookRotation(_targetDirection), _rotationSpeed * Time.fixedDeltaTime);
-            _rigidbody.MoveRotation(targetRotation);
-            transform.rotation = targetRotation;
+            transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.LookRotation(_targetDirection), _rotationSpeed * Time.deltaTime);
         }
     }
 
