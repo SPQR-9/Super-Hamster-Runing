@@ -20,8 +20,8 @@ public class HamsterMover : MonoBehaviour
     [SerializeField] private float _reboundability = 0.3f;
     [SerializeField] private float _rotationSpeed = 12f;
     [SerializeField] private float _discardForce = 250f;
-    [SerializeField] private float _criticalAngular = 65f;
 
+    private float _criticalAngular = 50f;
     private Rigidbody _rigidbody;
     private bool _isRun = false;
     private float _currentSpeed;
@@ -44,8 +44,8 @@ public class HamsterMover : MonoBehaviour
 
     private void Update()
     {
-        if (transform.localEulerAngles.x > _criticalAngular/2 && transform.rotation.eulerAngles.x < 180 ||
-            transform.localEulerAngles.x < 360f - _criticalAngular / 2 && transform.localEulerAngles.x > 180)
+        if (transform.localEulerAngles.x > _criticalAngular && transform.rotation.eulerAngles.x < 180 ||
+            transform.localEulerAngles.x < 360f - _criticalAngular && transform.localEulerAngles.x > 180)
                 _currentDirection = _targetDirection;
         else
             _currentDirection = transform.forward;
@@ -66,21 +66,22 @@ public class HamsterMover : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (!_isTurnsAround && _isRestrictionOnCorners)
+        //¬ставить в случае обнаружени€ багов с физикой
+        /*if (!_isTurnsAround && _isRestrictionOnCorners)
         {
             if (Mathf.Abs(transform.rotation.eulerAngles.y - Quaternion.LookRotation(_targetDirection).eulerAngles.y) > 0.5f)
                 transform.rotation = Quaternion.LookRotation(_targetDirection);
-            if(transform.rotation.eulerAngles.z!=0)
+            if (transform.rotation.eulerAngles.z != 0)
                 transform.rotation = Quaternion.Euler(transform.rotation.eulerAngles.x, transform.rotation.eulerAngles.y, 0);
-        }
+        }*/
     }
 
     private void YAngleChecker()
     {
-        if (transform.localEulerAngles.x > _criticalAngular / 2 && transform.rotation.eulerAngles.x < 180 ||
-            transform.localEulerAngles.x < 360f - _criticalAngular / 2 && transform.localEulerAngles.x > 180) 
+        if (transform.localEulerAngles.x > _criticalAngular && transform.rotation.eulerAngles.x < 180 ||
+            transform.localEulerAngles.x < 360f - _criticalAngular/2 && transform.localEulerAngles.x > 180) 
         {
-            Quaternion targetRotation = Quaternion.Lerp(transform.rotation, Quaternion.LookRotation(_targetDirection), _rotationSpeed * Time.deltaTime);
+            Quaternion targetRotation = Quaternion.Lerp(transform.rotation, Quaternion.LookRotation(_targetDirection), _rotationSpeed * Time.fixedDeltaTime);
             _rigidbody.MoveRotation(targetRotation);
             transform.rotation = targetRotation;
         }
@@ -90,7 +91,7 @@ public class HamsterMover : MonoBehaviour
     {
         Quaternion targetRotation = Quaternion.Lerp(transform.rotation, Quaternion.LookRotation(_targetDirection), _currentSpeed * _rotationSpeed * Time.fixedDeltaTime);
         _rigidbody.MoveRotation(targetRotation);
-        if ((int)transform.rotation.eulerAngles.y+1 == Quaternion.LookRotation(_targetDirection).eulerAngles.y || (int)transform.rotation.eulerAngles.y - 1 == Quaternion.LookRotation(_targetDirection).eulerAngles.y)
+        if ((int)transform.rotation.eulerAngles.y + 1 == Quaternion.LookRotation(_targetDirection).eulerAngles.y || (int)transform.rotation.eulerAngles.y - 1 == Quaternion.LookRotation(_targetDirection).eulerAngles.y)
         {
             transform.rotation = Quaternion.LookRotation(_targetDirection);
             _isTurnsAround = false;

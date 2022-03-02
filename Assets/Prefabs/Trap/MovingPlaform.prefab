@@ -755,7 +755,7 @@ MonoBehaviour:
   _secondPoint: {fileID: 808366486636588812}
   _travelTime: 2
   _minRunTime: 1.7
-  _maxRunTime: 2.3
+  _maxRunTime: 2.5
 --- !u!65 &808366486356927477
 BoxCollider:
   m_ObjectHideFlags: 0

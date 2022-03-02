@@ -13,21 +13,23 @@ public class HamsterFollower : MonoBehaviour
     {
         _hamster.Discharged += StopFollowing;
         _hamster.Respauned += StartFollowing;
+        _hamster.Fall += StopFollowing;
     }
 
     private void OnDisable()
     {
         _hamster.Discharged -= StopFollowing;
         _hamster.Respauned -= StartFollowing;
+        _hamster.Fall -= StopFollowing;
     }
 
     private void Update()
     {
         if(_isFollowing)
-            transform.position = new Vector3(_hamster.transform.position.x, transform.position.y, _hamster.transform.position.z);
+            transform.position = new Vector3(_hamster.transform.position.x, _hamster.transform.position.y, _hamster.transform.position.z);
     }
 
-    private void StopFollowing()
+    public void StopFollowing()
     {
         _isFollowing = false;
     }

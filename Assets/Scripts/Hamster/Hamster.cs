@@ -87,6 +87,7 @@ public class Hamster : MonoBehaviour
     {
         if (_respawnCoroutine != null)
             StopCoroutine(_respawnCoroutine);
+        _hamsterMover.Daze(pausedTimeBeforeDeath);
         _respawnCoroutine = StartCoroutine(WaitForPauseBeforeRespawn(pausedTimeBeforeDeath));
     }
     
