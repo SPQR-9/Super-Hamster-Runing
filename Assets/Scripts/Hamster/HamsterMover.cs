@@ -32,7 +32,6 @@ public class HamsterMover : MonoBehaviour
     private bool _isTurnsAround = false;
     private float _stunTimer = 0f;
     private Collider _collider;
-
     public float MaxSpeed => _maxSpeed;
     public Vector3 Direction => _targetDirection;
 
@@ -45,8 +44,9 @@ public class HamsterMover : MonoBehaviour
 
     private void Update()
     {
-        if (transform.rotation.eulerAngles.x > _criticalAngular || transform.rotation.eulerAngles.x < -_criticalAngular)
-            _currentDirection = _targetDirection;
+        if (transform.localEulerAngles.x > _criticalAngular/2 && transform.rotation.eulerAngles.x < 180 ||
+            transform.localEulerAngles.x < 360f - _criticalAngular / 2 && transform.localEulerAngles.x > 180)
+                _currentDirection = _targetDirection;
         else
             _currentDirection = transform.forward;
         if (_stunTimer>0)
@@ -62,7 +62,6 @@ public class HamsterMover : MonoBehaviour
             Turn();
         if (_isRestrictionOnCorners)
             YAngleChecker();
-        
     }
 
     private void FixedUpdate()
@@ -78,10 +77,12 @@ public class HamsterMover : MonoBehaviour
 
     private void YAngleChecker()
     {
-        if (transform.rotation.eulerAngles.x > _criticalAngular || transform.rotation.eulerAngles.x < -_criticalAngular)
+        if (transform.localEulerAngles.x > _criticalAngular / 2 && transform.rotation.eulerAngles.x < 180 ||
+            transform.localEulerAngles.x < 360f - _criticalAngular / 2 && transform.localEulerAngles.x > 180) 
         {
-            Quaternion targetRotation = Quaternion.Lerp(transform.rotation, Quaternion.LookRotation(Vector3.right), _rotationSpeed * Time.fixedDeltaTime);
+            Quaternion targetRotation = Quaternion.Lerp(transform.rotation, Quaternion.LookRotation(_targetDirection), _rotationSpeed * Time.deltaTime);
             _rigidbody.MoveRotation(targetRotation);
+            transform.rotation = targetRotation;
         }
     }
 
