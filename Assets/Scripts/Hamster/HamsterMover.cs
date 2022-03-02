@@ -21,7 +21,7 @@ public class HamsterMover : MonoBehaviour
     [SerializeField] private float _rotationSpeed = 12f;
     [SerializeField] private float _discardForce = 250f;
 
-    private float _criticalAngular = 50f;
+    private float _criticalAngular = 30f;
     private Rigidbody _rigidbody;
     private bool _isRun = false;
     private float _currentSpeed;
@@ -79,7 +79,7 @@ public class HamsterMover : MonoBehaviour
     private void YAngleChecker()
     {
         if (transform.localEulerAngles.x > _criticalAngular && transform.rotation.eulerAngles.x < 180 ||
-            transform.localEulerAngles.x < 360f - _criticalAngular/2 && transform.localEulerAngles.x > 180)
+            transform.localEulerAngles.x < 360f - _criticalAngular && transform.localEulerAngles.x > 180)
         {
             transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.LookRotation(_targetDirection), _rotationSpeed * Time.deltaTime);
         }

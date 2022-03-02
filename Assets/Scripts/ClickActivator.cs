@@ -4,11 +4,11 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.Events;
 
-public class ClickActivator : MonoBehaviour, IPointerClickHandler
+public class ClickActivator : MonoBehaviour, IPointerDownHandler
 {
     public UnityEvent ActivateAfterClick;
 
-    public void OnPointerClick(PointerEventData eventData)
+    public void OnPointerDown(PointerEventData eventData)
     {
         ActivateAfterClick?.Invoke();
     }

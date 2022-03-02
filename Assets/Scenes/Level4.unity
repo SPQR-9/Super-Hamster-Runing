@@ -10332,6 +10332,46 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 147135261}
     m_Modifications:
+    - target: {fileID: 2140935977, guid: ac7647528439d294b823441998600c46, type: 3}
+      propertyPath: ActivateAfterDowned.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 963194232}
+    - target: {fileID: 2140935977, guid: ac7647528439d294b823441998600c46, type: 3}
+      propertyPath: ActivateAfterDowned.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 872582472187685807}
+    - target: {fileID: 2140935977, guid: ac7647528439d294b823441998600c46, type: 3}
+      propertyPath: ActivateAfterClicked.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 872582472187685807}
+    - target: {fileID: 2140935977, guid: ac7647528439d294b823441998600c46, type: 3}
+      propertyPath: ActivateAfterClicked.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 750422124}
+    - target: {fileID: 2140935977, guid: ac7647528439d294b823441998600c46, type: 3}
+      propertyPath: ActivateAfterDowned.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: StartAIRunning
+      objectReference: {fileID: 0}
+    - target: {fileID: 2140935977, guid: ac7647528439d294b823441998600c46, type: 3}
+      propertyPath: ActivateAfterDowned.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
+      value: Run
+      objectReference: {fileID: 0}
+    - target: {fileID: 2140935977, guid: ac7647528439d294b823441998600c46, type: 3}
+      propertyPath: ActivateAfterClicked.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: Stop
+      objectReference: {fileID: 0}
+    - target: {fileID: 2140935977, guid: ac7647528439d294b823441998600c46, type: 3}
+      propertyPath: ActivateAfterClicked.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
+      value: SetActive
+      objectReference: {fileID: 0}
+    - target: {fileID: 2140935977, guid: ac7647528439d294b823441998600c46, type: 3}
+      propertyPath: ActivateAfterDowned.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: HamstersObserver, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 2140935977, guid: ac7647528439d294b823441998600c46, type: 3}
+      propertyPath: ActivateAfterDowned.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
+      value: HamsterMover, Assembly-CSharp
+      objectReference: {fileID: 0}
     - target: {fileID: 6560346944115982916, guid: ac7647528439d294b823441998600c46, type: 3}
       propertyPath: m_Controller
       value: 

@@ -1585,15 +1585,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _onGround: 1
-  _maxSpeed: 0.5
+  _maxSpeed: 0.46
   _maxFlyingSpeed: 0.05
   _brakingForce: 5
-  _accelerationForce: 3
+  _accelerationForce: 2.4
   _accelerationFlyingForce: 0.9
   _reboundability: 0.4
   _rotationSpeed: 8.8
   _discardForce: 400
-  _criticalAngular: 65
 --- !u!114 &8069721999459084701
 MonoBehaviour:
   m_ObjectHideFlags: 0
