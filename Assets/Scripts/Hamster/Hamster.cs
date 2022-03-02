@@ -19,6 +19,8 @@ public class Hamster : MonoBehaviour
     public event UnityAction Won;
     public event UnityAction<Hamster> Finished;
     public event UnityAction Losed;
+    public event UnityAction StartedRunning;
+    public event UnityAction StopedRunning;
 
     [SerializeField] private HamsterType _type;
     [SerializeField] private TMP_Text _nameText;
@@ -93,6 +95,11 @@ public class Hamster : MonoBehaviour
         FlatHorizontal?.Invoke();
     }
 
+    public void StartRunning()
+    {
+        StartedRunning?.Invoke();
+    }
+
     public void ToFall()
     {
         _hamsterMover.DisableRigidbodyRestriction();
@@ -114,6 +121,7 @@ public class Hamster : MonoBehaviour
 
     public void Finish()
     {
+        StopedRunning?.Invoke();
         _hamsterMover.ProhibitMovement();
         Finished?.Invoke(this);
     }

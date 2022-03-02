@@ -6,6 +6,15 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/Scenes/ScreenSaver.unity
+    guid: 30f95271288c5994a855aa28289b85b8
+  - enabled: 1
     path: Assets/Scenes/Level1.unity
+    guid: 440004c0a7597ba40ab58802bccf695f
+  - enabled: 1
+    path: Assets/Scenes/Level2.unity
+    guid: c1a500027b2aa4b41b3ecd9eb593c2ab
+  - enabled: 1
+    path: Assets/Scenes/Level7.unity
     guid: 60552b6fdca262b44b81b079105f5b4d
   m_configObjects: {}

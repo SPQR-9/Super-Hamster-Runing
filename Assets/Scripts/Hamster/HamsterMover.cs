@@ -45,7 +45,7 @@ public class HamsterMover : MonoBehaviour
 
     private void Update()
     {
-        if (transform.rotation.eulerAngles.x > _criticalAngular / 2 || transform.rotation.eulerAngles.x < -_criticalAngular / 2)
+        if (transform.rotation.eulerAngles.x > _criticalAngular || transform.rotation.eulerAngles.x < -_criticalAngular)
             _currentDirection = _targetDirection;
         else
             _currentDirection = transform.forward;
@@ -62,15 +62,17 @@ public class HamsterMover : MonoBehaviour
             Turn();
         if (_isRestrictionOnCorners)
             YAngleChecker();
-
+        
     }
 
-    private void LateUpdate()
+    private void FixedUpdate()
     {
         if (!_isTurnsAround && _isRestrictionOnCorners)
         {
             if (Mathf.Abs(transform.rotation.eulerAngles.y - Quaternion.LookRotation(_targetDirection).eulerAngles.y) > 0.5f)
                 transform.rotation = Quaternion.LookRotation(_targetDirection);
+            if(transform.rotation.eulerAngles.z!=0)
+                transform.rotation = Quaternion.Euler(transform.rotation.eulerAngles.x, transform.rotation.eulerAngles.y, 0);
         }
     }
 
@@ -106,7 +108,6 @@ public class HamsterMover : MonoBehaviour
     private void Move()
     {
         _rigidbody.MovePosition(transform.position + _currentDirection * _currentSpeed);
-        /*transform.Translate(_currentDirection * _currentSpeed);*/
         SpeedChanged(_currentSpeed);
     }
 

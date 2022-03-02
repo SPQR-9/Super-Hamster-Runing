@@ -78,6 +78,14 @@ public class HamstersObserver : MonoBehaviour
         }
     }
 
+    public void StartAIRunning()
+    {
+        foreach (var hamster in _notFinishedHamsters)
+        {
+            hamster.StartRunning();
+        }
+    }
+
     private void RemoveCurrentHamsterFromTheList(Hamster currentHamster)
     {
         for (int i = 0; i < _notFinishedHamsters.Count; i++)
