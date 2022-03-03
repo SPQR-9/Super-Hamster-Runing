@@ -32,7 +32,8 @@ namespace EpicToonFX
                 li.intensity -= initIntensity * (Time.deltaTime / life);
                 if (killAfterLife && li.intensity <= 0)
                     //Destroy(gameObject);
-					Destroy(gameObject.GetComponent<Light>());
+                    Destroy(gameObject.GetComponent<Light>());
+                /*gameObject.SetActive(false);*/
             }
         }
     }

@@ -4,5 +4,38 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/Scenes/ScreenSaver.unity
+    guid: 30f95271288c5994a855aa28289b85b8
+  - enabled: 1
+    path: Assets/Scenes/Level1.unity
+    guid: 440004c0a7597ba40ab58802bccf695f
+  - enabled: 1
+    path: Assets/Scenes/Level2.unity
+    guid: c1a500027b2aa4b41b3ecd9eb593c2ab
+  - enabled: 1
+    path: Assets/Scenes/Level3.unity
+    guid: 9db44adc5c9d11648afcbb2d3a7dfef6
+  - enabled: 1
+    path: Assets/Scenes/Level4.unity
+    guid: 62c731f20a3cfb448b536be24ff93d5a
+  - enabled: 1
+    path: Assets/Scenes/Level5.unity
+    guid: da52461fadf54844facb71cb238c90c9
+  - enabled: 1
+    path: Assets/Scenes/Level6.unity
+    guid: f5b6ef587efd2744ba424848d7aee3d4
+  - enabled: 1
+    path: Assets/Scenes/Level7.unity
+    guid: 60552b6fdca262b44b81b079105f5b4d
+  - enabled: 1
+    path: Assets/Scenes/Level8.unity
+    guid: edc58047448e07842a223c1359fc346c
+  - enabled: 1
+    path: Assets/Scenes/Level9.unity
+    guid: f314d9616be4f8a489f29d851dff71c6
+  - enabled: 1
+    path: Assets/Scenes/Level10.unity
+    guid: 1021881c341428c449ef518c5683b539
   m_configObjects: {}

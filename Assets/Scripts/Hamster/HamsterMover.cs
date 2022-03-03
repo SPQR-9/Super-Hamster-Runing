@@ -2,48 +2,113 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
-[RequireComponent(typeof(HamsterAnimationController))]
 [RequireComponent(typeof(Rigidbody))]
+[RequireComponent(typeof(Collider))]
 public class HamsterMover : MonoBehaviour
 {
-    [SerializeField] private bool _runPermission = true;
+    public event UnityAction<float> SpeedChanged;
+    public event UnityAction<float> Stuned;
+
+    [SerializeField] private bool _onGround = true;
     [SerializeField] private float _maxSpeed = 5f;
+    [SerializeField] private float _maxFlyingSpeed = 1f;
     [SerializeField] private float _brakingForce = 1f;
     [SerializeField] private float _accelerationForce = 1f;
+    [SerializeField] private float _accelerationFlyingForce = 1f;
     [SerializeField] private float _reboundability = 0.3f;
-    [SerializeField] private float _timeStun = 2f;
+    [SerializeField] private float _rotationSpeed = 12f;
+    [SerializeField] private float _discardForce = 250f;
 
-
+    private float _criticalAngular = 30f;
     private Rigidbody _rigidbody;
-    private HamsterAnimationController _animationController;
     private bool _isRun = false;
-    private float _stunTimer = 0f;
     private float _currentSpeed;
+    private Vector3 _currentDirection;
+    private Vector3 _targetDirection;
+    private bool _isStoped = false;
+    private bool _isRestrictionOnCorners = true;
+    private bool _isTurnsAround = false;
+    private float _stunTimer = 0f;
+    private Collider _collider;
+    public float MaxSpeed => _maxSpeed;
+    public Vector3 Direction => _targetDirection;
 
     private void Awake()
     {
         _rigidbody = GetComponent<Rigidbody>();
-        _animationController = GetComponent<HamsterAnimationController>();
+        _targetDirection = Vector3.right;
+        _collider = GetComponent<Collider>();
     }
 
     private void Update()
     {
-        _animationController.CheckRunningSpeed(_currentSpeed, _maxSpeed);
-        if (_stunTimer > 0)
-            _stunTimer -= Time.deltaTime;
-/*        if (Input.GetKey(KeyCode.Mouse0))
-            _isRun = true;  */
-        if (_runPermission && _isRun && _stunTimer <= 0)
-        {
+        if (transform.localEulerAngles.x > _criticalAngular && transform.rotation.eulerAngles.x < 180 ||
+            transform.localEulerAngles.x < 360f - _criticalAngular && transform.localEulerAngles.x > 180)
+                _currentDirection = _targetDirection;
+        else
+            _currentDirection = transform.forward;
+        if (_stunTimer>0)
+            _stunTimer -= Time.deltaTime; 
+        if (_onGround && _isRun && _stunTimer <= 0 && !_isStoped)
             _currentSpeed = Mathf.Lerp(_currentSpeed, _maxSpeed, _accelerationForce * Time.deltaTime);
-            Move();
-        }
+        else if(!_onGround && _isRun && _stunTimer <= 0 && !_isStoped)
+            _currentSpeed = Mathf.Lerp(_currentSpeed, _maxFlyingSpeed, _accelerationFlyingForce * Time.deltaTime);
         else 
-        {
             _currentSpeed = Mathf.Lerp(_currentSpeed, 0, _brakingForce * Time.deltaTime);
-            Move();
+        Move();
+        if (_isTurnsAround)
+            Turn();
+        if (_isRestrictionOnCorners)
+            YAngleChecker();
+    }
+
+    private void FixedUpdate()
+    {
+        //¬ставить в случае обнаружени€ багов с физикой
+        /*if (!_isTurnsAround && _isRestrictionOnCorners)
+        {
+            if (Mathf.Abs(transform.rotation.eulerAngles.y - Quaternion.LookRotation(_targetDirection).eulerAngles.y) > 0.5f)
+                transform.rotation = Quaternion.LookRotation(_targetDirection);
+            if (transform.rotation.eulerAngles.z != 0)
+                transform.rotation = Quaternion.Euler(transform.rotation.eulerAngles.x, transform.rotation.eulerAngles.y, 0);
+        }*/
+    }
+
+    private void YAngleChecker()
+    {
+        if (transform.localEulerAngles.x > _criticalAngular && transform.rotation.eulerAngles.x < 180 ||
+            transform.localEulerAngles.x < 360f - _criticalAngular && transform.localEulerAngles.x > 180)
+        {
+            transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.LookRotation(_targetDirection), _rotationSpeed * Time.deltaTime);
         }
+    }
+
+    private void Turn()
+    {
+        Quaternion targetRotation = Quaternion.Lerp(transform.rotation, Quaternion.LookRotation(_targetDirection), _currentSpeed * _rotationSpeed * Time.fixedDeltaTime);
+        _rigidbody.MoveRotation(targetRotation);
+        if ((int)transform.rotation.eulerAngles.y + 1 == Quaternion.LookRotation(_targetDirection).eulerAngles.y || (int)transform.rotation.eulerAngles.y - 1 == Quaternion.LookRotation(_targetDirection).eulerAngles.y)
+        {
+            transform.rotation = Quaternion.LookRotation(_targetDirection);
+            _isTurnsAround = false;
+            EnableRigidbodyRestriction();
+        }
+    }
+
+    public void SetNewDirection(Vector3 direction)
+    {
+        _isTurnsAround = true;
+        _rigidbody.constraints = RigidbodyConstraints.FreezeRotationZ;
+        _targetDirection = direction;
+        
+    }
+
+    private void Move()
+    {
+        _rigidbody.MovePosition(transform.position + _currentDirection * _currentSpeed);
+        SpeedChanged(_currentSpeed);
     }
 
     public void Run()
@@ -56,29 +121,76 @@ public class HamsterMover : MonoBehaviour
         _isRun = false;
     }
 
-    private void Move()
+    public void PutOnGround()
     {
-        _rigidbody.MovePosition(transform.position + Vector3.right.normalized * _currentSpeed);
+        _onGround = true;
     }
 
-    public void AllowRunning()
+    public void FlyUp()
     {
-        _runPermission = true;
+        _onGround = false;
     }
 
-    public void ProhibitRunning()
+    public void DisablePhysics()
     {
-        _runPermission = false;
+        _rigidbody.isKinematic = true;
+        _collider.enabled = false;
+        _isRestrictionOnCorners = false;
     }
 
-    public void ReboundAndStun(float reboundForce = 1)
+    public void EnableKinematic()
     {
-        _stunTimer = _timeStun;
-        _currentSpeed = -_currentSpeed * _reboundability * reboundForce;
+        _rigidbody.isKinematic = false;
     }
 
-    public void Fall()
+    public void DisableKinematic()
     {
-        _animationController.StartFallAnimation();
+        _rigidbody.isKinematic = true;
+    }
+
+    public void ReboundAndStun(float stunTime)
+    {
+        Stuned?.Invoke(stunTime);
+        _stunTimer = stunTime;
+        _currentSpeed = -_currentSpeed * _reboundability;
+    }
+
+    public void HitStun(float stunTime)
+    {
+        Daze(stunTime);
+        _currentSpeed = 0;
+        _rigidbody.isKinematic = true;
+        _rigidbody.isKinematic = false;
+    }
+
+    public void EnableRigidbodyRestriction()
+    {
+        if (_targetDirection == Vector3.back || _targetDirection == Vector3.forward)
+            _rigidbody.constraints = RigidbodyConstraints.FreezePositionX | RigidbodyConstraints.FreezeRotationZ | RigidbodyConstraints.FreezeRotationY;
+        else
+            _rigidbody.constraints = RigidbodyConstraints.FreezePositionZ | RigidbodyConstraints.FreezeRotationZ | RigidbodyConstraints.FreezeRotationY;
+        _isRestrictionOnCorners = true;
+    }
+    
+    public void DisableRigidbodyRestriction()
+    {
+        _rigidbody.constraints = RigidbodyConstraints.None;
+        _isRestrictionOnCorners = false;
+    }
+
+    public void Daze(float stunTime)
+    {
+        Stuned?.Invoke(stunTime);
+        _stunTimer = stunTime;
+    }
+
+    public void DiscardHamster(Vector3 direction)
+    {
+        _rigidbody.AddForce(direction * _discardForce, ForceMode.Impulse);
+    }
+
+    public void ProhibitMovement()
+    {
+        _isStoped = true;
     }
 }

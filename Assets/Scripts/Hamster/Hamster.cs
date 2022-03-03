@@ -2,62 +2,155 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
-using System;
+using TMPro;
 
+
+[RequireComponent(typeof(HamsterMover))]
 public class Hamster : MonoBehaviour
 {
-    public UnityEvent ActivateAfterFall;
-    public UnityEvent ActivateAfterDeath;
+    public UnityEvent ActivateAfterRespawn;
 
-    [SerializeField] private Type _status;
+    public event UnityAction<Trap> TrapInformationHasBeenTransmitted;
+    public event UnityAction FlatVertically;
+    public event UnityAction FlatHorizontal;
+    public event UnityAction Fall;
+    public event UnityAction Discharged;
+    public event UnityAction Respauned;
+    public event UnityAction Won;
+    public event UnityAction<Hamster> Finished;
+    public event UnityAction Losed;
+    public event UnityAction StartedRunning;
+    public event UnityAction StopedRunning;
 
-    private HamsterCollider[] _hamsterColliders;
+    [SerializeField] private HamsterType _type;
+    [SerializeField] private TMP_Text _nameText;
+    [SerializeField] private Transform _respawnPoint;
+    [SerializeField] private Transform _pointOfVictoryAnimation;
 
-    public Type HamsterStatus => _status;
+    private HamsterMover _hamsterMover;
+    private string _name;
+    private Coroutine _respawnCoroutine = null;
+
+
+    public string Name => _name;
+    public HamsterType Type => _type;
 
     private void Awake()
     {
-        _hamsterColliders = GetComponentsInChildren<HamsterCollider>();
+        _hamsterMover = GetComponent<HamsterMover>();
     }
 
-    private void OnEnable()
+    public void SetName(string name)
     {
-        foreach (var hamsterCollider in _hamsterColliders)
-        {
-            hamsterCollider.AcceptedNewCommandForHamsterBody += ExecuteCommand;
-        }
+        _name = name;
+        _nameText.text = name;
     }
 
-    private void OnDisable()
+    public void SetInfoAboutTrap(Trap trap)
     {
-        foreach (var hamsterCollider in _hamsterColliders)
-        {
-            hamsterCollider.AcceptedNewCommandForHamsterBody -= ExecuteCommand;
-        }
+        TrapInformationHasBeenTransmitted?.Invoke(trap);
     }
 
-    public void ExecuteCommand(Command command)
+    public void ReboundAndStun(float stunTime)
     {
-        switch (command)
-        {
-            case Command.Fall:
-                ActivateAfterFall?.Invoke();
-                break;
-            case Command.Death:
-                ActivateAfterDeath?.Invoke();
-                break;
-            default:
-                break;
-        }
+        _hamsterMover.ReboundAndStun(stunTime);
     }
 
+    public void HitStun(float stunTime)
+    {
+        _hamsterMover.HitStun(stunTime);
+    }
+
+    public void Daze(float stunTime)
+    {
+        _hamsterMover.Daze(stunTime);
+    }
+
+    public void SetNewSpawnPoint(Transform transformPoint)
+    {
+        _respawnPoint = transformPoint;
+    }
+
+    public void FlattenVertically()
+    {
+        FlatVertically?.Invoke();
+    }
+
+    public void DischargeIntoWater(Vector3 direction)
+    {
+        _hamsterMover.DisableRigidbodyRestriction();
+        _hamsterMover.DiscardHamster(direction);
+        Discharged?.Invoke();
+    }
+
+    public void WaiteRespawn(float pausedTimeBeforeDeath)
+    {
+        if (_respawnCoroutine != null)
+            StopCoroutine(_respawnCoroutine);
+        _hamsterMover.Daze(pausedTimeBeforeDeath);
+        _respawnCoroutine = StartCoroutine(WaitForPauseBeforeRespawn(pausedTimeBeforeDeath));
+    }
+    
+    public void FlattenHorizontal()
+    {
+        FlatHorizontal?.Invoke();
+    }
+
+    public void StartRunning()
+    {
+        StartedRunning?.Invoke();
+    }
+
+    public void ToFall()
+    {
+        _hamsterMover.DisableRigidbodyRestriction();
+        Fall?.Invoke();
+    }
+
+    public void Win()
+    {
+        Won?.Invoke();
+        _hamsterMover.DisablePhysics();
+        transform.parent = _pointOfVictoryAnimation;
+    }
+
+    public void Lose()
+    {
+        _hamsterMover.ProhibitMovement();
+        Losed?.Invoke();
+    }
+
+    public void Finish()
+    {
+        StopedRunning?.Invoke();
+        _hamsterMover.ProhibitMovement();
+        Finished?.Invoke(this);
+    }
+
+    public void Respawn()
+    {
+        _hamsterMover.DisableKinematic();
+        transform.position = _respawnPoint.position;
+        transform.rotation = _respawnPoint.rotation;
+        _hamsterMover.EnableKinematic();
+        _hamsterMover.EnableRigidbodyRestriction();
+        SetInfoAboutTrap(null);
+        Respauned?.Invoke();
+        ActivateAfterRespawn?.Invoke();
+    }
+
+    private IEnumerator WaitForPauseBeforeRespawn(float time)
+    {
+        yield return new WaitForSeconds(time);
+        Respawn();
+    }
 }
 
-[Serializable]
 
-public enum Command
+public enum HamsterType
 {
-    Fall,
-    Death
+    Player,
+    AI
 }
+
 
