@@ -593,7 +593,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 190447417}
-  m_LocalRotation: {x: 0.16977456, y: 0.49216217, z: -0.09852402, w: 0.84808373}
+  m_LocalRotation: {x: 0.16977458, y: 0.4921621, z: -0.098524, w: 0.8480837}
   m_LocalPosition: {x: -32.000004, y: 22.5, z: -11.999999}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -1147,7 +1147,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 234734003}
-  m_LocalRotation: {x: 0.07991874, y: -0.7025759, z: 0.079918735, w: 0.70257604}
+  m_LocalRotation: {x: 0.07991875, y: -0.7025759, z: 0.079918735, w: 0.70257604}
   m_LocalPosition: {x: -3.999999, y: 10.5, z: -0.0000011920929}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -3172,7 +3172,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 963194225}
-  m_LocalRotation: {x: 0.16977456, y: 0.49216217, z: -0.09852402, w: 0.84808373}
+  m_LocalRotation: {x: 0.16977458, y: 0.4921621, z: -0.098524, w: 0.8480837}
   m_LocalPosition: {x: -32.000004, y: 22.5, z: -11.999999}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -5877,7 +5877,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1680238849}
-  m_LocalRotation: {x: 0.050155543, y: 0.9481759, z: -0.2488493, w: 0.19110474}
+  m_LocalRotation: {x: 0.050155543, y: 0.9481759, z: -0.24884932, w: 0.19110474}
   m_LocalPosition: {x: -20.999998, y: 25.5, z: 23.800003}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -8379,6 +8379,10 @@ PrefabInstance:
     - target: {fileID: 4806483401883109497, guid: 86cb8abe5a9ba524faa7b5b214cc574f, type: 3}
       propertyPath: m_Name
       value: LosePanel
+      objectReference: {fileID: 0}
+    - target: {fileID: 4806483401883109497, guid: 86cb8abe5a9ba524faa7b5b214cc574f, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4806483401883109498, guid: 86cb8abe5a9ba524faa7b5b214cc574f, type: 3}
       propertyPath: m_Pivot.x
